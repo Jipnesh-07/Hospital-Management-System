@@ -35,33 +35,33 @@ struct ContentView: View {
         //        }
         //        .padding()
         
-        //        Button(action: {
-        //            authService.signup(firstName: "admin", lastName: ".", age: 10, gender: "Male", email: "admin@gmail.com", phoneNumber: 1234567890, password: "password", accountType: "admin", experience: 20){ result in
-        //                switch result {
-        //                case .success(let response):
-        //                    print("User signed up successfully: \(response.user.firstName) \(response.user.lastName)")
-        //                    print("Token: \(response.token)")
-        //                case .failure(let error):
-        //                    print("Error signing up: \(error)")
-        //                }
-        //            }
-        //        }, label: {
-        //            Text("SignUp")
-        //        })
+//                Button(action: {
+//                    authService.signup(firstName: "Rajiv", lastName: "Kumar", age: 10, gender: "Male", email: "rajiv@doctor.com", phoneNumber: 1234567890, password: "123456", accountType: "doctor", experience: 20){ result in
+//                        switch result {
+//                        case .success(let response):
+//                            print("User signed up successfully: \(response.user.firstName) \(response.user.lastName)")
+//                            print("Token: \(response.token)")
+//                        case .failure(let error):
+//                            print("Error signing up: \(error)")
+//                        }
+//                    }
+//                }, label: {
+//                    Text("SignUp")
+//                })
+//        
         
-        
-        //        Button(action: {
-        //            authService.signin(email: "admin@gmail.com", password: "123456") { result in
-        //                switch result {
-        //                case .success(let response):
-        //                    print("User signed in successfully: \(response.user.firstName) \(response.user.lastName)")
-        //                    print("Token: \(response.token)")
-        //                case .failure(let error):
-        //                    print("Error signing in: \(error)")
-        //                }
-        //            }}, label: {
-        //            Text("SignIn")
-        //        })
+//                Button(action: {
+//                    authService.signin(email: "Jim@gmail.com", password: "123456") { result in
+//                        switch result {
+//                        case .success(let response):
+//                            print("User signed in successfully: \(response.user.firstName) \(response.user.lastName)")
+//                            print("Token: \(response.token)")
+//                        case .failure(let error):
+//                            print("Error signing in: \(error)")
+//                        }
+//                    }}, label: {
+//                    Text("SignIn")
+//                })
         //        MainPatientView()
         //        Button(action: {
         //            patientService.searchDoctors(query: "reddy") { result in
@@ -97,7 +97,8 @@ struct ContentView: View {
 //        MainPatientView()
         //        MainDoctorView()
         //        MainAdminView()
-        DetailedDoctorView()
+//        DetailedDoctorView()
+        userSignIn()
     }
 }
 

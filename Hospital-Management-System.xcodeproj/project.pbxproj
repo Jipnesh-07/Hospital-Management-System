@@ -41,6 +41,7 @@
 		FAB1FF5F2C105DBC00098E63 /* auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1FF5E2C105DBC00098E63 /* auth.swift */; };
 		FAB1FF612C106F4500098E63 /* patientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1FF602C106F4500098E63 /* patientController.swift */; };
 		FAB1FF632C10AA3900098E63 /* LabTestsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1FF622C10AA3900098E63 /* LabTestsList.swift */; };
+		FABDC3542C1233D900464A9F /* bookLabAppointmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABDC3532C1233D900464A9F /* bookLabAppointmentsView.swift */; };
 		FABF630B2C11AC1E00F7EB75 /* BookAppointmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABF630A2C11AC1E00F7EB75 /* BookAppointmentView.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		FAB1FF5E2C105DBC00098E63 /* auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = auth.swift; sourceTree = "<group>"; };
 		FAB1FF602C106F4500098E63 /* patientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = patientController.swift; sourceTree = "<group>"; };
 		FAB1FF622C10AA3900098E63 /* LabTestsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabTestsList.swift; sourceTree = "<group>"; };
+		FABDC3532C1233D900464A9F /* bookLabAppointmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bookLabAppointmentsView.swift; sourceTree = "<group>"; };
 		FABF630A2C11AC1E00F7EB75 /* BookAppointmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAppointmentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -234,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				FA537F622C0FA2DB005FC3F9 /* LaboratoryContentView.swift */,
+				FABDC3532C1233D900464A9F /* bookLabAppointmentsView.swift */,
 			);
 			path = LabTests;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				FA537F352C0F8265005FC3F9 /* initialRoute.swift in Sources */,
 				FA537F6F2C0FABBC005FC3F9 /* AdminHomeView.swift in Sources */,
 				FA537F6B2C0FAB20005FC3F9 /* DoctorProfileView.swift in Sources */,
+				FABDC3542C1233D900464A9F /* bookLabAppointmentsView.swift in Sources */,
 				FA537F592C0FA0E0005FC3F9 /* DoctorsListView.swift in Sources */,
 				FA537F5D2C0FA17C005FC3F9 /* ProfileContentView.swift in Sources */,
 				FAB1FF582C10185800098E63 /* Appointment.swift in Sources */,

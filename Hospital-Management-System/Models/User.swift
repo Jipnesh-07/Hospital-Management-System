@@ -102,5 +102,6 @@ struct UserRegistrationResponse: Decodable {
 struct SigninResponse: Codable {
     var user: User
     var token: String
+    let type: String
 }
 

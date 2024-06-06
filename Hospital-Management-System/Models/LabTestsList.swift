@@ -8,7 +8,7 @@
 
 import Foundation
 
-let LabTests: [String: [String]] = [
+let LabTests = [
     "Blood-Test": [
         "Blood Glucose Test",
         "Complete Blood Count (CBC)",
@@ -76,5 +76,6 @@ let LabTests: [String: [String]] = [
         "Visual Evoked Potential (VEP) Test"
     ]
 ]
+
 
 
