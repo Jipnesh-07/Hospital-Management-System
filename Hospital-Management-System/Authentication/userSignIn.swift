@@ -165,8 +165,8 @@ struct userSignIn: View {
                 case .success(let response):
                     print("User signed in successfully: \(response.user.firstName) \(response.user.lastName)")
                     print("Token: \(response.token)")
-                    print("Type: \(response.type)")
-                    updateUserType(response.type)
+                    print("Type: \(response.accountType)")
+                    updateUserType(response.accountType)
                 case .failure(let error):
                     print("Error signing in: \(error)")
                 }

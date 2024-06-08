@@ -80,7 +80,7 @@ struct User: Codable{
 
 
 struct UserRegistrationResponse: Decodable {
-    let message: String
+//    let message: String
     let user: User
     let token: String
     //    let type: String
@@ -93,7 +93,7 @@ struct UserRegistrationResponse: Decodable {
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.message = try container.decode(String.self, forKey: .message)
+//        self.message = try container.decode(String.self, forKey: .message)
         self.user = try container.decode(User.self, forKey: .user)
         self.token = try container.decode(String.self, forKey: .token)
     }
@@ -102,6 +102,6 @@ struct UserRegistrationResponse: Decodable {
 struct SigninResponse: Codable {
     var user: User
     var token: String
-    let type: String
+    let accountType: String
 }
 

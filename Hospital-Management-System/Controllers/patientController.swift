@@ -10,7 +10,7 @@ import Foundation
 
 class PatientService {
     
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvQGdtYWlsLmNvbSIsImlkIjoiNjY1ODQyNDBmNjQwYTcxZWM2NWMwNDFmIiwiaWF0IjoxNzE3MTM0OTY1fQ.DwP7aLTOIKhRJVdY49J01Zu0CMRPm37IgHW3MDMV25M"
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImphdGluQHBhdGllbnQuY29tIiwiaWQiOiI2NjY0MjY4NjVmZGY5ODY5NmIyMGQ1MTYiLCJpYXQiOjE3MTc4NDEzMzV9.J4kybVsN9Z1O9axHGRU4pf65fNicwDEUrEsH2_2TV1Y"
     
     let baseURL = "https://hms-backend-1-1aof.onrender.com/patient"
     

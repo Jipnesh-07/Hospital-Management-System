@@ -84,7 +84,7 @@ let sampleSchedule = Schedule(
     id: "schedule1"
 )
 
-struct Doctor: Codable {
+struct Doctor: Identifiable, Codable {
     var id: String
     var accountType: String
     var firstName: String
@@ -95,7 +95,8 @@ struct Doctor: Codable {
     var approved: Bool
     var email: String
     var password: String
-    var categoryId: UUID
+//    var categoryId: UUID
+    var fees: String
     var about: String
     var specialization: String
     var experience: String
@@ -116,7 +117,8 @@ struct Doctor: Codable {
         case approved
         case email
         case password
-        case categoryId
+//        case categoryId
+        case fees
         case about
         case specialization
         case experience
@@ -127,6 +129,8 @@ struct Doctor: Codable {
         case schedule
     }
 }
+
+
 
 let sampleDoctor = Doctor(
     id: "doctor1",
@@ -139,7 +143,8 @@ let sampleDoctor = Doctor(
     approved: false,
     email: "john.doe@example.com",
     password: "password123",
-    categoryId: UUID(), about: "Dr. John Doe is a highly experienced cardiologist with over 15 years of experience in the field. He is dedicated to providing the best care to his patients.",
+    fees: "34",
+  /*  categoryId: UUID()*/ about: "Dr. John Doe is a highly experienced cardiologist with over 15 years of experience in the field. He is dedicated to providing the best care to his patients.",
     specialization: "Cardiology",
     experience: "15 years",
     qualification: "MD",

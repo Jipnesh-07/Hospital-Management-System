@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct BookAppointmentView: View {
-    @State private var showTimePicker = false
-    @State private var selectedTime = Date()
-    @State private var selectedOption = ""
-
-    let options = ["Morning Shift", "Afternoon Shift", "Evening Shift"]
+    @State private var showBookingSheet = false
 
     var body: some View {
-        VStack {
-            Spacer()
-            CardView()
+        NavigationView {
+            VStack {
+                Spacer()
+                // Automatically show the booking sheet on launch
+                BookingSheetView()
+                Spacer()
+            }
+            .navigationBarTitle("Cardiologist", displayMode: .inline)
         }
     }
 }
@@ -27,30 +28,42 @@ struct BookAppointmentView: View {
 }
 
 
-struct CardView: View {
-    @State private var textFieldText = ""
-    @State private var selectedOption = ""
-    @State private var selectDate = Date()
+
+struct BookingSheetView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @State private var selectedDate = Date()
+    @State private var startTime = Date()
+    @State private var endTime = Date()
+    @State private var selectedSlot = "Morning"
     
-    let options = ["Morning Shift", "Afternoon Shift", "Evening Shift"]
+    let slotOptions = ["Morning", "Afternoon", "Evening"]
 
     var body: some View {
-        VStack{
-            HStack{
-                DatePicker("Date", selection: $selectDate, displayedComponents: [.date])
-                
-                
+        VStack {
+            
+            Form {
+                Section(header: Text("Date")) {
+                    DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
+                }
 
-                
+                Section(header: Text("Slots")) {
+                    Picker("Select Slot", selection: $selectedSlot) {
+                        ForEach(slotOptions, id: \.self) { slot in
+                            Text(slot)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    
+                    DatePicker("Start Time", selection: $startTime, displayedComponents: .hourAndMinute)
+                    DatePicker("End Time", selection: $endTime, displayedComponents: .hourAndMinute)
+                }
             }
-            .padding()
-            
-            HStack{
-                
-                
-            }
-            .padding()
-            
         }
     }
 }
+//
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

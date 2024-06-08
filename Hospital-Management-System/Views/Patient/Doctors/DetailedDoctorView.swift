@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct DetailedDoctorView: View {
-    
-//    @State private var shiftStartTime = Date()
+    var doctor: Doctor
+    @State private var showBookAppointmentView = false
     
     var body: some View {
         NavigationView {
@@ -21,11 +21,11 @@ struct DetailedDoctorView: View {
                         .frame(width: 100, height: 100)
                         .clipShape(Circle())
                     
-                    Text("James Harris")
+                    Text("\(doctor.firstName) \(doctor.lastName)")
                         .font(.title2)
                         .fontWeight(.bold)
                     
-                    Text("MBBS")
+                    Text("\(doctor.qualification)")
                         .foregroundColor(.gray)
                     
                     HStack{
@@ -37,7 +37,7 @@ struct DetailedDoctorView: View {
                     Spacer().frame(height: 4)
                     HStack {
                         VStack {
-                            Text("15yr")
+                            Text("\(doctor.experience)yr")
                                 .font(.title3)
                                 .fontWeight(.bold)
                             Text("Experience")
@@ -45,7 +45,7 @@ struct DetailedDoctorView: View {
                         }
                         Spacer()
                         VStack {
-                            Text("₹450")
+                            Text("₹\(doctor.fees)")
                                 .font(.title3)
                                 .fontWeight(.bold)
                             Text("Hourly Rate")
@@ -62,7 +62,7 @@ struct DetailedDoctorView: View {
                         Text("About")
                             .font(.title3)
                             .bold()
-                        Text("Dr. John Doe is a highly experienced cardiologist with over 15 years of experience in the field. He is dedicated to providing the best care to his patients.")
+                        Text("\(doctor.about)")
                             .font(.footnote)
                             .multilineTextAlignment(.center)
                             .lineLimit(3)
@@ -129,7 +129,7 @@ struct DetailedDoctorView: View {
                     
                     // Book Appointment Button
                     Button(action: {
-                        // Book appointment action
+                        showBookAppointmentView = true
                     }) {
                         Text("Book Appointment")
                             .fontWeight(.bold)
@@ -147,12 +147,14 @@ struct DetailedDoctorView: View {
                 .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 0, y: 5)
                 .padding(.horizontal)
                 
-                
+                .sheet(isPresented: $showBookAppointmentView) {
+                                       BookAppointmentView()
+                                   }
             }
         }
     }
 }
 
-#Preview {
-    DetailedDoctorView()
-}
+//#Preview {
+//    DetailedDoctorView(doctor: D)
+//}

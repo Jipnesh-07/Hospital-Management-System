@@ -11,7 +11,7 @@ import Foundation
 
 class AuthService {
     
-    let baseURL = "http://localhost:4000/auth"
+    let baseURL = "https://hms-backend-1-1aof.onrender.com/auth"
     
     func signup(firstName: String, lastName: String, age: Int, gender: String, email: String, phoneNumber: Int, password: String, accountType: String, experience: Int, completion: @escaping (Result<UserRegistrationResponse, Error>) -> Void) {
         
@@ -134,6 +134,7 @@ func signin(email: String, password: String, completion: @escaping (Result<Signi
                 if let data = data, let responseBody = String(data: data, encoding: .utf8) {
                     print("Response Body: \(responseBody)")
                 }
+                
                 completion(.failure(NSError(domain: "", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: "Server error"])))
                 return
             }
