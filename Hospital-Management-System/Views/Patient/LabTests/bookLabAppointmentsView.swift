@@ -7,13 +7,15 @@
 
 import SwiftUI
 
+
 struct bookLabAppointmentsView: View {
     @State private var selectedTest = "Blood Test"
     @State private var selectedType = "Blood Glucose Test"
     @State private var selectedDate = Date()
-    @State private var selectedTime = Date()
+    @State private var selectedTimeSlot = "Morning"
     
-    
+    let timeSlots = ["Morning", "Afternoon", "Evening"]
+
     var testNames: [String] {
         return Array(LabTests.keys)
     }
@@ -51,28 +53,58 @@ struct bookLabAppointmentsView: View {
                 }
                 .padding()
                 
-                DatePicker("Select Date", selection: $selectedDate, displayedComponents:.date)
-                //.labelsHidden()
+                DatePicker("Select Date", selection: $selectedDate,
+                           
+                           displayedComponents: .date)
                     .padding()
                 
-                DatePicker("Select Time", selection: $selectedTime, displayedComponents:.hourAndMinute)
-                //.labelsHidden()
-                    .padding()
-                
-                NavigationLink(destination: Text("Test booked!"), label: {
-                    Text("Book Test")
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth:.infinity)
-                        .background(Color.blue)
-                        .cornerRadius(10)
-                })
+                HStack {
+                    Text("Time Slot")
+                    Spacer()
+                    Picker("Time Slot", selection: $selectedTimeSlot) {
+                        ForEach(timeSlots, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .labelsHidden()
+                }
                 .padding()
+
+//                NavigationLink(destination: Text("Test booked!"), label: {
+//                    Text("Book Test")
+//                        .foregroundColor(.white)
+//                        .padding()
+//                        .frame(maxWidth:.infinity)
+//                        .background(Color.blue)
+//                        .cornerRadius(10)
+//                })
+//                .padding()
+                
+                Button(action: {
+                    // Approve 
+                    print("hello")
+                    print(selectedDate)
+                    let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "yyyy-MM-dd"
+                            let formattedDate = dateFormatter.string(from: selectedDate)
+                            
+                            patientService.bookLabAppointment(testName: selectedType, timeSlot: selectedTimeSlot, date: formattedDate)
+                        
+                    
+                       }) {
+                    Text("Book appointment")
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
+                }
             }
             .padding()
-            .background(.white)
+            .background(Color.white)
             .cornerRadius(15)
-            .shadow(color:Color.gray.opacity(0.5),radius: 10,x:0,y:5)
+            .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 0, y: 5)
             .navigationTitle("")
             .navigationBarHidden(true)
         }

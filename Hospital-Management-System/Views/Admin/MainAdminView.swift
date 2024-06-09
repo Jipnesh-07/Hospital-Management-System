@@ -10,7 +10,8 @@ import SwiftUI
 struct MainAdminView: View {
     var body: some View {
         TabView {
-            AdminHomeView()
+//            AdminHomeView()
+            VerifyingDoctorsView()
                 .tabItem {
                     Label("Home", systemImage: "house")
                     

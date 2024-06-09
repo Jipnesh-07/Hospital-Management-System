@@ -8,33 +8,37 @@
 
 import Foundation
 
-import Foundation
 
 struct TestDetails: Codable {
     let patient: String
-    let date: Date
+    let date: String
     let timeSlot: String
     let testName: String
-    let status: String
-    let id: String
-    let createdAt: Date
-    let updatedAt: Date
-    let v: Int
+//    let status: String
+//    let id: String
+//    let createdAt: Date
+//    let updatedAt: Date
+//    let v: Int
 
     enum CodingKeys: String, CodingKey {
         case patient
         case date
         case timeSlot
         case testName
-        case status
-        case id = "_id"
-        case createdAt
-        case updatedAt
-        case v = "__v"
+//        case status
+//        case id = "_id"
+//        case createdAt
+//        case updatedAt
+//        case v = "__v"
     }
 }
 
 
+struct BookAppointmentResponse: Codable {
+    let success: Bool
+    let data: TestDetails
+    //let message: String?
+}
 
 let LabTests = [
     "Blood-Test": [
