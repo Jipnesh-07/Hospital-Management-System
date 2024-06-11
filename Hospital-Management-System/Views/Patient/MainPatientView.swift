@@ -22,18 +22,20 @@ struct MainPatientView: View {
                 }
             
             
-            LaboratoryContentView()
+            PatientAppointmentVeiw()
                 .tabItem {
                     Label("Appointments", systemImage: "testtube.2")
                 }
             
-            LaboratoryContentView()
+//            LaboratoryContentView()
+            LabTestAppointmentsView()
                 .tabItem {
                     Label("LabTests", systemImage: "testtube.2")
                 }
             
             
-            ProfileContentView()
+//            ProfileContentView()
+            HealthDetailsView()
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }

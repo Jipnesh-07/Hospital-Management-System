@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED7F75422C180EF9005DB7B8 /* appGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7F75412C180EF9005DB7B8 /* appGradient.swift */; };
+		ED7F75462C181B19005DB7B8 /* LabTestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7F75452C181B19005DB7B8 /* LabTestListView.swift */; };
+		ED7F75482C185058005DB7B8 /* navigationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7F75472C185058005DB7B8 /* navigationHelper.swift */; };
+		ED7F754A2C18D9FB005DB7B8 /* completedDiagonesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7F75492C18D9FB005DB7B8 /* completedDiagonesView.swift */; };
+		ED7F754C2C18DAF2005DB7B8 /* AddDiagnoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7F754B2C18DAF2005DB7B8 /* AddDiagnoseView.swift */; };
+		ED7F754E2C18DBE2005DB7B8 /* doctorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7F754D2C18DBE2005DB7B8 /* doctorController.swift */; };
 		FA537F242C0F8197005FC3F9 /* Hospital_Management_SystemApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA537F232C0F8197005FC3F9 /* Hospital_Management_SystemApp.swift */; };
 		FA537F262C0F8197005FC3F9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA537F252C0F8197005FC3F9 /* ContentView.swift */; };
 		FA537F282C0F8199005FC3F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA537F272C0F8199005FC3F9 /* Assets.xcassets */; };
 		FA537F2B2C0F8199005FC3F9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA537F2A2C0F8199005FC3F9 /* Preview Assets.xcassets */; };
-		FA537F352C0F8265005FC3F9 /* initialRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA537F342C0F8265005FC3F9 /* initialRoute.swift */; };
 		FA537F392C0F82C7005FC3F9 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA537F382C0F82C7005FC3F9 /* Patient.swift */; };
 		FA537F3B2C0F82CF005FC3F9 /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA537F3A2C0F82CF005FC3F9 /* Doctor.swift */; };
 		FA537F3D2C0F82DE005FC3F9 /* Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA537F3C2C0F82DE005FC3F9 /* Admin.swift */; };
@@ -49,12 +54,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED7F75412C180EF9005DB7B8 /* appGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appGradient.swift; sourceTree = "<group>"; };
+		ED7F75452C181B19005DB7B8 /* LabTestListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabTestListView.swift; sourceTree = "<group>"; };
+		ED7F75472C185058005DB7B8 /* navigationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = navigationHelper.swift; sourceTree = "<group>"; };
+		ED7F75492C18D9FB005DB7B8 /* completedDiagonesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = completedDiagonesView.swift; sourceTree = "<group>"; };
+		ED7F754B2C18DAF2005DB7B8 /* AddDiagnoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDiagnoseView.swift; sourceTree = "<group>"; };
+		ED7F754D2C18DBE2005DB7B8 /* doctorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = doctorController.swift; sourceTree = "<group>"; };
 		FA537F202C0F8197005FC3F9 /* Hospital-Management-System.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hospital-Management-System.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA537F232C0F8197005FC3F9 /* Hospital_Management_SystemApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hospital_Management_SystemApp.swift; sourceTree = "<group>"; };
 		FA537F252C0F8197005FC3F9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FA537F272C0F8199005FC3F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA537F2A2C0F8199005FC3F9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		FA537F342C0F8265005FC3F9 /* initialRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = initialRoute.swift; sourceTree = "<group>"; };
 		FA537F382C0F82C7005FC3F9 /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
 		FA537F3A2C0F82CF005FC3F9 /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		FA537F3C2C0F82DE005FC3F9 /* Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Admin.swift; sourceTree = "<group>"; };
@@ -127,7 +137,9 @@
 				FA537F312C0F81A8005FC3F9 /* Views */,
 				FA537F232C0F8197005FC3F9 /* Hospital_Management_SystemApp.swift */,
 				FA537F252C0F8197005FC3F9 /* ContentView.swift */,
+				ED7F75412C180EF9005DB7B8 /* appGradient.swift */,
 				FA537F272C0F8199005FC3F9 /* Assets.xcassets */,
+				ED7F75472C185058005DB7B8 /* navigationHelper.swift */,
 				FA537F292C0F8199005FC3F9 /* Preview Content */,
 			);
 			path = "Hospital-Management-System";
@@ -167,11 +179,11 @@
 		FA537F332C0F823D005FC3F9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FA537F342C0F8265005FC3F9 /* initialRoute.swift */,
 				FAB1FF5E2C105DBC00098E63 /* auth.swift */,
 				FAB1FF602C106F4500098E63 /* patientController.swift */,
 				FAE2454B2C146FB9007A45E0 /* adminController.swift */,
 				FAC07AF52C14BD5000589388 /* labController.swift */,
+				ED7F754D2C18DBE2005DB7B8 /* doctorController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -245,6 +257,7 @@
 			children = (
 				FA537F622C0FA2DB005FC3F9 /* LaboratoryContentView.swift */,
 				FABDC3532C1233D900464A9F /* bookLabAppointmentsView.swift */,
+				ED7F75452C181B19005DB7B8 /* LabTestListView.swift */,
 			);
 			path = LabTests;
 			sourceTree = "<group>";
@@ -278,6 +291,8 @@
 			isa = PBXGroup;
 			children = (
 				FA537F682C0FAB0F005FC3F9 /* PatientsListView.swift */,
+				ED7F75492C18D9FB005DB7B8 /* completedDiagonesView.swift */,
+				ED7F754B2C18DAF2005DB7B8 /* AddDiagnoseView.swift */,
 			);
 			path = Patients;
 			sourceTree = "<group>";
@@ -414,11 +429,11 @@
 				FA537F652C0FA325005FC3F9 /* PatientAppointmentsView.swift in Sources */,
 				FA537F632C0FA2DB005FC3F9 /* LaboratoryContentView.swift in Sources */,
 				FAB1FF632C10AA3900098E63 /* LabTestsList.swift in Sources */,
-				FA537F352C0F8265005FC3F9 /* initialRoute.swift in Sources */,
 				FA537F6F2C0FABBC005FC3F9 /* AdminHomeView.swift in Sources */,
 				FA537F6B2C0FAB20005FC3F9 /* DoctorProfileView.swift in Sources */,
 				FAE2454A2C146F7E007A45E0 /* verifyingDoctorsView.swift in Sources */,
 				FABDC3542C1233D900464A9F /* bookLabAppointmentsView.swift in Sources */,
+				ED7F754E2C18DBE2005DB7B8 /* doctorController.swift in Sources */,
 				FAE2454C2C146FB9007A45E0 /* adminController.swift in Sources */,
 				FA537F592C0FA0E0005FC3F9 /* DoctorsListView.swift in Sources */,
 				FA537F5D2C0FA17C005FC3F9 /* ProfileContentView.swift in Sources */,
@@ -433,9 +448,14 @@
 				FA537F392C0F82C7005FC3F9 /* Patient.swift in Sources */,
 				FA537F672C0FAB00005FC3F9 /* ScheduledAppointmentsView.swift in Sources */,
 				FA537F732C0FAC2D005FC3F9 /* LaboratoryTests_AdminView.swift in Sources */,
+				ED7F75422C180EF9005DB7B8 /* appGradient.swift in Sources */,
 				FA537F3F2C0F9638005FC3F9 /* User.swift in Sources */,
+				ED7F754C2C18DAF2005DB7B8 /* AddDiagnoseView.swift in Sources */,
+				ED7F754A2C18D9FB005DB7B8 /* completedDiagonesView.swift in Sources */,
 				FA537F5B2C0FA14C005FC3F9 /* DetailedDoctorView.swift in Sources */,
 				FA537F5F2C0FA194005FC3F9 /* HealthDetailsView.swift in Sources */,
+				ED7F75462C181B19005DB7B8 /* LabTestListView.swift in Sources */,
+				ED7F75482C185058005DB7B8 /* navigationHelper.swift in Sources */,
 				FA537F752C0FAC40005FC3F9 /* PatientsList_AdminView.swift in Sources */,
 				FA537F572C0FA0C3005FC3F9 /* CategoriesListView.swift in Sources */,
 				FABF630B2C11AC1E00F7EB75 /* BookAppointmentView.swift in Sources */,
@@ -580,6 +600,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -609,6 +630,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

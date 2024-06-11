@@ -97,7 +97,7 @@ struct LaboratoryContentView: View {
                 }
             }
             .sheet(isPresented: $isAddSheetPresented) {
-                bookLabAppointmentsView()
+                BookLabAppointmentsView()
             }
         }
         

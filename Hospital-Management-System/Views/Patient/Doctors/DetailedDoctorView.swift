@@ -148,13 +148,9 @@ struct DetailedDoctorView: View {
                 .padding(.horizontal)
                 
                 .sheet(isPresented: $showBookAppointmentView) {
-                                       BookAppointmentView()
+                    BookAppointmentView(doctorId: doctor.id)
                                    }
             }
         }
     }
 }
-
-//#Preview {
-//    DetailedDoctorView(doctor: D)
-//}

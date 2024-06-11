@@ -1,21 +1,15 @@
-//
-//  bookLabAppointmentsView.swift
-//  Hospital-Management-System
-//
-//  Created by MACBOOK on 06/06/24.
-//
-
 import SwiftUI
 
-
-struct bookLabAppointmentsView: View {
+struct BookLabAppointmentsView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var selectedTest = "Blood Test"
     @State private var selectedType = "Blood Glucose Test"
     @State private var selectedDate = Date()
     @State private var selectedTimeSlot = "Morning"
+    @State private var showSuccessAlert = false
     
     let timeSlots = ["Morning", "Afternoon", "Evening"]
-
+    
     var testNames: [String] {
         return Array(LabTests.keys)
     }
@@ -26,91 +20,106 @@ struct bookLabAppointmentsView: View {
     
     var body: some View {
         NavigationView {
-            VStack(alignment:.leading) {
-                HStack {
-                    Text("Test")
-                    Spacer()
-                    Picker("Test", selection: $selectedTest) {
-                        ForEach(testNames, id: \.self) {
-                            Text($0)
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    .labelsHidden()
-                }
-                .padding()
-                
-                HStack {
-                    Text("Type")
-                    Spacer()
-                    Picker("Type", selection: $selectedType) {
-                        ForEach(types, id: \.self) {
-                            Text($0)
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    .labelsHidden()
-                }
-                .padding()
-                
-                DatePicker("Select Date", selection: $selectedDate,
-                           
-                           displayedComponents: .date)
+            VStack(alignment: .leading) {
+                Text("Lab Appointment")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
                     .padding()
                 
-                HStack {
-                    Text("Time Slot")
-                    Spacer()
-                    Picker("Time Slot", selection: $selectedTimeSlot) {
-                        ForEach(timeSlots, id: \.self) {
-                            Text($0)
+                VStack(alignment: .leading, spacing: 20) {
+                    
+                    HStack(content: {
+                        Text("Test Type:")
+                        Spacer()
+                        
+                        Picker("Test", selection: $selectedTest) {
+                            ForEach(testNames, id: \.self) {
+                                Text($0)
+                            }
                         }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    .labelsHidden()
+                        .pickerStyle(MenuPickerStyle())
+                        
+                    })
+                    
+                    
+                    
+                    HStack(content: {
+                        Text("Test Name:")
+                        
+                        Spacer()
+                        
+                        Picker("Type", selection: $selectedType) {
+                            ForEach(types, id: \.self) {
+                                Text($0)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        
+                    })
+                    
+                    
+                    
+                   
+                    
+                    
+                    
+                    DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
+                    
+                    
+                    
+                    HStack(content: {
+                        Text("Slot:")
+                        
+                        Spacer()
+                        
+                        Picker("Time Slot", selection: $selectedTimeSlot) {
+                            ForEach(timeSlots, id: \.self) {
+                                Text($0)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        
+                    })
+                    
+                    
                 }
                 .padding()
-
-//                NavigationLink(destination: Text("Test booked!"), label: {
-//                    Text("Book Test")
-//                        .foregroundColor(.white)
-//                        .padding()
-//                        .frame(maxWidth:.infinity)
-//                        .background(Color.blue)
-//                        .cornerRadius(10)
-//                })
-//                .padding()
                 
                 Button(action: {
-                    // Approve 
-                    print("hello")
-                    print(selectedDate)
+                    // Book Lab Appointment
                     let dateFormatter = DateFormatter()
-                            dateFormatter.dateFormat = "yyyy-MM-dd"
-                            let formattedDate = dateFormatter.string(from: selectedDate)
-                            
-                            patientService.bookLabAppointment(testName: selectedType, timeSlot: selectedTimeSlot, date: formattedDate)
-                        
-                    
-                       }) {
-                    Text("Book appointment")
-                        .padding(.horizontal)
-                        .padding(.vertical, 5)
-                        .background(Color.green)
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    let formattedDate = dateFormatter.string(from: selectedDate)
+                    patientService.bookLabAppointment(testName: selectedType, timeSlot: selectedTimeSlot, date: formattedDate)
+                    showSuccessAlert = true // Show success alert
+                }) {
+                    Text("Book Appointment")
                         .foregroundColor(.white)
-                        .cornerRadius(5)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .cornerRadius(10)
                 }
+                .padding()
+                .alert(isPresented: $showSuccessAlert) {
+                    Alert(
+                        title: Text("Appointment Booked Successfully ✅"),
+                        message: Text("Your lab appointment has been booked."),
+                        dismissButton: .default(Text("OK")) {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    )
+                }
+                
+                Spacer()
             }
-            .padding()
-            .background(Color.white)
-            .cornerRadius(15)
-            .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 0, y: 5)
-            .navigationTitle("")
-            .navigationBarHidden(true)
+           
         }
     }
 }
 
-#Preview {
-    bookLabAppointmentsView()
+struct BookLabAppointmentsView_Previews: PreviewProvider {
+    static var previews: some View {
+        BookLabAppointmentsView()
+    }
 }

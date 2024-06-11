@@ -17,19 +17,18 @@ struct MainDoctorView: View {
                     
                 }
             
-            ScheduledAppointmentsView()
+            DoctorAppointmentView()
                 .tabItem {
                     Label("Appointments", systemImage: "person.badge.clock")
                     
                 }
             
-            PatientsListView()
+          //  PatientsListView()
                 .tabItem {
                     Label("Patients", systemImage: "person.2.fill")
                 }
             
-            
-            ProfileContentView()
+            DoctorProfileView()
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }

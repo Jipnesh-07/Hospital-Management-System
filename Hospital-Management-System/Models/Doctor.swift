@@ -95,16 +95,18 @@ struct Doctor: Identifiable, Codable {
     var approved: Bool
     var email: String
     var password: String
-//    var categoryId: UUID
     var fees: String
     var about: String
     var specialization: String
     var experience: String
     var qualification: String
-    var appointments: [String]
+   // var appointments: [DoctorAppointment]?
+    let labTestAppointments: [TestDetails]?
     var createdAt: Date
     var updatedAt: Date
-    var schedule: [Schedule]
+    var schedule: [Schedule]?
+    
+    
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -118,12 +120,13 @@ struct Doctor: Identifiable, Codable {
         case email
         case password
 //        case categoryId
+        case labTestAppointments
         case fees
         case about
         case specialization
         case experience
         case qualification
-        case appointments
+       // case appointments
         case createdAt
         case updatedAt
         case schedule
@@ -132,27 +135,7 @@ struct Doctor: Identifiable, Codable {
 
 
 
-let sampleDoctor = Doctor(
-    id: "doctor1",
-    accountType: "doctor",
-    firstName: "John",
-    lastName: "Doe",
-    age: 40,
-    gender: "Male",
-    phoneNumber: 1234567890,
-    approved: false,
-    email: "john.doe@example.com",
-    password: "password123",
-    fees: "34",
-  /*  categoryId: UUID()*/ about: "Dr. John Doe is a highly experienced cardiologist with over 15 years of experience in the field. He is dedicated to providing the best care to his patients.",
-    specialization: "Cardiology",
-    experience: "15 years",
-    qualification: "MD",
-    appointments: ["appointment1", "appointment2"],
-    createdAt: Date(),
-    updatedAt: Date(),
-    schedule: [sampleSchedule]
-)
+
 
 struct DoctorResponse: Codable {
     var success: Bool

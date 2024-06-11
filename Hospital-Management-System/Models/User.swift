@@ -16,12 +16,18 @@ struct User: Codable{
     let lastName: String
     let age: Int
     let gender: String
+    let bloodGroup: String?
+    let height: Int?
+    let weight: Int?
     let phoneNumber: Int
     let approved: Bool
     let email: String
     let password: String
-    let appointments: [String]
-    let schedule: [String]
+    let licenseNumber: Int?
+    let specialization: String?
+    let schedule: [Schedule]?
+    let experience: String?
+    let appointments: [String]?
     let createdAt: String
     let updatedAt: String
     
@@ -53,7 +59,13 @@ struct User: Codable{
         case approved
         case email
         case password
+        case bloodGroup
+        case weight
+        case height
         case appointments
+        case licenseNumber
+        case experience
+        case specialization
         case schedule
         case createdAt
         case updatedAt
@@ -71,10 +83,22 @@ struct User: Codable{
         self.approved = try container.decode(Bool.self, forKey: .approved)
         self.email = try container.decode(String.self, forKey: .email)
         self.password = try container.decode(String.self, forKey: .password)
-        self.appointments = try container.decode([String].self, forKey: .appointments)
-        self.schedule = try container.decode([String].self, forKey: .schedule)
+        self.appointments = try container.decodeIfPresent([String].self, forKey: .appointments)
+        self.schedule = try container.decodeIfPresent([Schedule].self, forKey: .schedule)
         self.createdAt = try container.decode(String.self, forKey: .createdAt)
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        bloodGroup = try container.decodeIfPresent(String.self, forKey: .bloodGroup)
+        height = try container.decodeIfPresent(Int.self, forKey: .height)
+        weight = try container.decodeIfPresent(Int.self, forKey: .weight)
+        licenseNumber = try container.decodeIfPresent(Int.self, forKey: .licenseNumber)
+        specialization = try container.decodeIfPresent(String.self, forKey: .specialization)
+        experience = try container.decodeIfPresent(String.self, forKey: .experience)
+        
+        
+        
+ 
+        
+        
     }
 }
 
@@ -101,6 +125,12 @@ struct UserRegistrationResponse: Decodable {
 
 struct SigninResponse: Codable {
     var user: User
+    var token: String
+    let accountType: String
+}
+
+struct DoctorSigninResponse: Codable {
+    var user: Doctor
     var token: String
     let accountType: String
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BookAppointmentView: View {
+    var doctorId: String
     @State private var showBookingSheet = false
 
     var body: some View {
@@ -15,7 +16,7 @@ struct BookAppointmentView: View {
             VStack {
                 Spacer()
                 // Automatically show the booking sheet on launch
-                BookingSheetView()
+                BookingSheetView(doctorId: doctorId)
                 Spacer()
             }
             .navigationBarTitle("Cardiologist", displayMode: .inline)
@@ -23,27 +24,35 @@ struct BookAppointmentView: View {
     }
 }
 
-#Preview {
-    BookAppointmentView()
+
+struct BookAppointmentView_Previews: PreviewProvider {
+    static var previews: some View {
+        BookAppointmentView(doctorId: "doctor123")
+    }
 }
 
 
 
 struct BookingSheetView: View {
+    var doctorId: String
+
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedDate = Date()
-    @State private var startTime = Date()
-    @State private var endTime = Date()
     @State private var selectedSlot = "Morning"
-    
+    @State private var symptom = ""
+    @State private var showAlert = false
+    @State private var showSuccessAlert = false
+    @State private var fieldErrorMessage = ""
+    @State private var alertMessage = ""
+
     let slotOptions = ["Morning", "Afternoon", "Evening"]
+    let currentDate = Date()
 
     var body: some View {
         VStack {
-            
             Form {
                 Section(header: Text("Date")) {
-                    DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
+                    DatePicker("Select Date", selection: $selectedDate, in: currentDate..., displayedComponents: .date)
                 }
 
                 Section(header: Text("Slots")) {
@@ -53,17 +62,78 @@ struct BookingSheetView: View {
                         }
                     }
                     .pickerStyle(MenuPickerStyle())
+                }
+
+                Section(header: Text("Symptom")) {
+                    TextField("Symptom", text: $symptom)
+                        .onChange(of: symptom) { newValue in
+                                                    if !newValue.isEmpty {
+                                                        fieldErrorMessage = ""
+                                                    }
+                                                }
+                                            if !fieldErrorMessage.isEmpty {
+                                                Text(fieldErrorMessage)
+                                                    .foregroundColor(.red)
+                                                    .font(.caption)
+                                            }
+                }
+
+                Button(action: {
+                    // Validate symptom
+                    guard !symptom.isEmpty else {
+                                            fieldErrorMessage = "Please enter a symptom."
+                                            return
+                                        }
+
+                                        // Clear the error message if the validation passes
+                                        fieldErrorMessage = ""
                     
-                    DatePicker("Start Time", selection: $startTime, displayedComponents: .hourAndMinute)
-                    DatePicker("End Time", selection: $endTime, displayedComponents: .hourAndMinute)
+                    let dateFormatter = DateFormatter()
+                                                   dateFormatter.dateFormat = "yyyy-MM-dd"
+                    let formattedDate = dateFormatter.string(from: selectedDate)
+                                        
+                                        print(formattedDate)
+                                        
+
+                    // Perform booking if symptom is not empty
+                    bookAppointment(formattedDate: formattedDate)
+                }) {
+                    Text("Book Appointment")
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                    
                 }
             }
         }
+        
+       
+          
+         
+            
+            .alert(isPresented: $showSuccessAlert) {
+                Alert(
+                    title: Text("Success"),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text("OK")) {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                )
+        
+        }
     }
+
+    private func bookAppointment(formattedDate: String) {
+        patientService.bookDocAppointment(
+                                docId: doctorId, timeSlot: selectedSlot, date: formattedDate, symptom: symptom
+                            )
+        print("Booking appointment...")
+        
+        alertMessage = "Your appointment has been booked"
+        showSuccessAlert = true
+    }
+    
+    
 }
-//
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}

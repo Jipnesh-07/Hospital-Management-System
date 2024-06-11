@@ -9,27 +9,28 @@
 import Foundation
 
 
-struct TestDetails: Codable {
+struct TestDetails: Codable, Identifiable {
+    
+    
+    
     let patient: String
-    let date: String
+    let date: Date
     let timeSlot: String
     let testName: String
-//    let status: String
-//    let id: String
-//    let createdAt: Date
-//    let updatedAt: Date
-//    let v: Int
+    let status: String
+    let id: String
+
 
     enum CodingKeys: String, CodingKey {
+        
+        
         case patient
         case date
         case timeSlot
         case testName
-//        case status
-//        case id = "_id"
-//        case createdAt
-//        case updatedAt
-//        case v = "__v"
+        case status
+       case id = "_id"
+
     }
 }
 
@@ -37,6 +38,13 @@ struct TestDetails: Codable {
 struct BookAppointmentResponse: Codable {
     let success: Bool
     let data: TestDetails
+    //let message: String?
+}
+
+
+struct GetAppointmentListResponse: Codable {
+    let success: Bool
+    let data: [TestDetails]
     //let message: String?
 }
 
