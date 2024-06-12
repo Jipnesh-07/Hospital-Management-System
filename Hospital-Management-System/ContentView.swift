@@ -11,6 +11,7 @@ import SwiftUI
 
 let authService = AuthService()
 let patientService = PatientService()
+let doctorService = DoctorService()
 
 struct ContentView: View {
     @State private var userType: UserType = .none

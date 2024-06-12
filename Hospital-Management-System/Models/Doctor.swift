@@ -48,41 +48,42 @@ struct ScheduleSlot: Codable {
     var timeSlot: String
     var startTime: String
     var endTime: String
-    var id: String
+    
     
     enum CodingKeys: String, CodingKey {
         case timeSlot
         case startTime
         case endTime
-        case id = "_id"
+        
     }
 }
 
 let sampleScheduleSlot = ScheduleSlot(
     timeSlot: "Morning",
     startTime: "09:00",
-    endTime: "11:00",
-    id: "slot1"
+    endTime: "11:00"
+    
 )
+
+struct ScheduleRequest: Codable {
+    var schedule: [Schedule]
+}
+
 
 
 struct Schedule: Codable {
-    var date: Date
+    var date: String
     var slots: [ScheduleSlot]
-    var id: String
+    
     
     enum CodingKeys: String, CodingKey {
         case date
         case slots
-        case id = "_id"
+        
     }
 }
 
-let sampleSchedule = Schedule(
-    date: Date(),
-    slots: [sampleScheduleSlot],
-    id: "schedule1"
-)
+
 
 struct Doctor: Identifiable, Codable {
     var id: String
@@ -140,6 +141,11 @@ struct Doctor: Identifiable, Codable {
 struct DoctorResponse: Codable {
     var success: Bool
     var data: [Doctor]
+}
+
+struct DoctorProfileResponse: Codable {
+    var success: Bool
+    var data: Doctor
 }
 
 

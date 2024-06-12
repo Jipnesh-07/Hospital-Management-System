@@ -13,6 +13,9 @@
 		ED7F754A2C18D9FB005DB7B8 /* completedDiagonesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7F75492C18D9FB005DB7B8 /* completedDiagonesView.swift */; };
 		ED7F754C2C18DAF2005DB7B8 /* AddDiagnoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7F754B2C18DAF2005DB7B8 /* AddDiagnoseView.swift */; };
 		ED7F754E2C18DBE2005DB7B8 /* doctorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7F754D2C18DBE2005DB7B8 /* doctorController.swift */; };
+		ED816EEE2C19562400FCD223 /* AddSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED816EED2C19562400FCD223 /* AddSchedule.swift */; };
+		ED816EF02C1A147400FCD223 /* DetailAppointmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED816EEF2C1A147400FCD223 /* DetailAppointmentView.swift */; };
+		ED816EF22C1A1AFA00FCD223 /* CompleteAppointmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED816EF12C1A1AFA00FCD223 /* CompleteAppointmentView.swift */; };
 		FA537F242C0F8197005FC3F9 /* Hospital_Management_SystemApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA537F232C0F8197005FC3F9 /* Hospital_Management_SystemApp.swift */; };
 		FA537F262C0F8197005FC3F9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA537F252C0F8197005FC3F9 /* ContentView.swift */; };
 		FA537F282C0F8199005FC3F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA537F272C0F8199005FC3F9 /* Assets.xcassets */; };
@@ -60,6 +63,9 @@
 		ED7F75492C18D9FB005DB7B8 /* completedDiagonesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = completedDiagonesView.swift; sourceTree = "<group>"; };
 		ED7F754B2C18DAF2005DB7B8 /* AddDiagnoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDiagnoseView.swift; sourceTree = "<group>"; };
 		ED7F754D2C18DBE2005DB7B8 /* doctorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = doctorController.swift; sourceTree = "<group>"; };
+		ED816EED2C19562400FCD223 /* AddSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSchedule.swift; sourceTree = "<group>"; };
+		ED816EEF2C1A147400FCD223 /* DetailAppointmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAppointmentView.swift; sourceTree = "<group>"; };
+		ED816EF12C1A1AFA00FCD223 /* CompleteAppointmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteAppointmentView.swift; sourceTree = "<group>"; };
 		FA537F202C0F8197005FC3F9 /* Hospital-Management-System.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hospital-Management-System.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA537F232C0F8197005FC3F9 /* Hospital_Management_SystemApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hospital_Management_SystemApp.swift; sourceTree = "<group>"; };
 		FA537F252C0F8197005FC3F9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -112,6 +118,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ED816EEC2C19560700FCD223 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				ED816EED2C19562400FCD223 /* AddSchedule.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
 		FA537F172C0F8197005FC3F9 = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +218,7 @@
 		FA537F412C0F9DD9005FC3F9 /* Doctor */ = {
 			isa = PBXGroup;
 			children = (
+				ED816EEC2C19560700FCD223 /* Schedule */,
 				FA537F4B2C0F9E76005FC3F9 /* Profile */,
 				FA537F4A2C0F9E6C005FC3F9 /* Patients */,
 				FA537F492C0F9E62005FC3F9 /* Appointments */,
@@ -283,6 +298,8 @@
 			isa = PBXGroup;
 			children = (
 				FA537F662C0FAB00005FC3F9 /* ScheduledAppointmentsView.swift */,
+				ED816EEF2C1A147400FCD223 /* DetailAppointmentView.swift */,
+				ED816EF12C1A1AFA00FCD223 /* CompleteAppointmentView.swift */,
 			);
 			path = Appointments;
 			sourceTree = "<group>";
@@ -431,15 +448,18 @@
 				FAB1FF632C10AA3900098E63 /* LabTestsList.swift in Sources */,
 				FA537F6F2C0FABBC005FC3F9 /* AdminHomeView.swift in Sources */,
 				FA537F6B2C0FAB20005FC3F9 /* DoctorProfileView.swift in Sources */,
+				ED816EEE2C19562400FCD223 /* AddSchedule.swift in Sources */,
 				FAE2454A2C146F7E007A45E0 /* verifyingDoctorsView.swift in Sources */,
 				FABDC3542C1233D900464A9F /* bookLabAppointmentsView.swift in Sources */,
 				ED7F754E2C18DBE2005DB7B8 /* doctorController.swift in Sources */,
 				FAE2454C2C146FB9007A45E0 /* adminController.swift in Sources */,
+				ED816EF02C1A147400FCD223 /* DetailAppointmentView.swift in Sources */,
 				FA537F592C0FA0E0005FC3F9 /* DoctorsListView.swift in Sources */,
 				FA537F5D2C0FA17C005FC3F9 /* ProfileContentView.swift in Sources */,
 				FAB1FF582C10185800098E63 /* Appointment.swift in Sources */,
 				FA537F242C0F8197005FC3F9 /* Hospital_Management_SystemApp.swift in Sources */,
 				FAC07AF62C14BD5000589388 /* labController.swift in Sources */,
+				ED816EF22C1A1AFA00FCD223 /* CompleteAppointmentView.swift in Sources */,
 				FA537F6D2C0FAB41005FC3F9 /* DoctorHomeView.swift in Sources */,
 				FA537F512C0FA069005FC3F9 /* MainPatientView.swift in Sources */,
 				FA537F612C0FA2B7005FC3F9 /* PatientHomeView.swift in Sources */,

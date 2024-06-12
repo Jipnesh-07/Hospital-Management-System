@@ -109,6 +109,12 @@ struct DoctorProfileView: View {
                         }
                         .frame(height: 40)
                     }
+                    Section {
+                                           NavigationLink(destination: AddSchedule()) {
+                                               Text("Schedule")
+                                                   .foregroundColor(.black).frame(maxWidth: .infinity, alignment: .leading)
+                                           }
+                                       }
                     
                     // Logout Button
                     Section {

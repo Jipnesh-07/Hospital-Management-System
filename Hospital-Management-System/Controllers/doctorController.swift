@@ -11,43 +11,9 @@ class DoctorService: ObservableObject{
     let token: String = UserDefaults.standard.string(forKey: "authToken") ?? ""
     
     let baseURL = "https://hms-backend-1-1aof.onrender.com/doctor"
-    
+    @Published var showSuccessAlert = false
+    @Published var doctor: Doctor?
     @Published var appointments: [DoctorAppointment] = []
-    
-//    private func getAppointments() {
-//        guard let url = URL(string: "https://hms-backend-1-1aof.onrender.com/doctor/appointments/") else {
-//            print("Invalid URL")
-//            return
-//        }
-//
-//        var request = URLRequest(url: url)
-//        request.setValue("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhdm5lZXRAZG9jdG9yLmNvbSIsImlkIjoiNjY2NDIzNzM1ZmRmOTg2OTZiMjBkNTBhIiwiaWF0IjoxNzE4MDE0NTg2fQ.Tmo_kkMIV5NYWqq-_DApz4a4TPyktIG-uwlYDaOO_3g", forHTTPHeaderField: "Authorization")
-//
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let data = data {
-//                do {
-//                    let decodedResponse = try JSONDecoder().decode(ApiResponse.self, from: data)
-//                    DispatchQueue.main.async {
-//                        self.patients = decodedResponse.data.map { appointment in
-//                            Patient(
-//                                name: "\(appointment.patient.firstName) \(appointment.patient.lastName)",
-//                                condition: appointment.symptom,
-//                                time: appointment.timeSlot,
-//                                imageName: "defaultImageName", // Replace with your logic for image names
-//                                isCompleted: appointment.status == "Completed",
-//                                appointment: appointment
-//                            )
-//                        }
-//                    }
-//                } catch {
-//                    print("Decoding error: \(error)")
-//                }
-//            }
-//        }.resume()
-//    }
-    
-    
-    
     
     
     
@@ -103,4 +69,199 @@ class DoctorService: ObservableObject{
         }
     
     
-}
+        func addSchedule(schedule: Schedule, completion: @escaping (Bool) -> Void) {
+            print("entered add schedule")
+            let url = URL(string: "\(baseURL)/addSchedule")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+
+            let scheduleRequest = ScheduleRequest(schedule: [schedule])
+            
+            print(scheduleRequest)
+            
+            if let encodedSchedule = try? encoder.encode(scheduleRequest) {
+                request.httpBody = encodedSchedule
+            } else {
+                print("Failed to encode schedule")
+                completion(false)
+                return
+            }
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error adding schedule: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+
+                guard let data = data else {
+                    print("No data received")
+                    completion(false)
+                    return
+                }
+
+                if let responseString = String(data: data, encoding: .utf8) {
+                    print("Response: \(responseString)")
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            }.resume()
+        }
+    
+    func fetchDoctorData(completion: @escaping (Bool) -> Void) {
+            let urlString = "\(baseURL)/getprofile"
+            guard let url = URL(string: urlString) else {
+                print("Invalid URL")
+                completion(false)
+                return
+            }
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error fetching doctor data: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+
+                guard let data = data else {
+                    print("No data received")
+                    completion(false)
+                    return
+                }
+
+                do {
+                    let decoder = JSONDecoder()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                    decoder.dateDecodingStrategy = .formatted(dateFormatter)
+
+                    let doctorResponse = try decoder.decode(DoctorProfileResponse.self, from: data)
+                    DispatchQueue.main.async {
+                        self.doctor = doctorResponse.data
+                        completion(true)
+                    }
+                } catch {
+                    print("Error decoding doctor data: \(error.localizedDescription)")
+                    completion(false)
+                }
+            }
+
+            task.resume()
+        }
+    
+    // Function to add a prescription
+    func addPrescription(appointmentId: String, prescription: String, completion: @escaping (Bool) -> Void) {
+            guard let url = URL(string: "\(baseURL)/prescription/\(appointmentId)") else {
+                print("Invalid URL")
+                completion(false)
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            
+            let body: [String: Any] = [
+                "prescription": prescription
+                
+            ]
+            
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+            } catch {
+                print("Failed to serialize JSON: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error adding prescription: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+                
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    print("Invalid response")
+                    completion(false)
+                    return
+                }
+                
+                if httpResponse.statusCode == 200 {
+                    print("Prescription added successfully")
+                    completion(true)
+                } else {
+                    print("Failed with status code: \(httpResponse.statusCode)")
+                    completion(false)
+                }
+            }
+            
+            task.resume()
+        }
+    
+    // Function to add a prescription
+    func addTest(appointmentId: String, test: String, completion: @escaping (Bool) -> Void) {
+            guard let url = URL(string: "\(baseURL)/tests/\(appointmentId)") else {
+                print("Invalid URL")
+                completion(false)
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            
+            let body: [String: Any] = [
+                "tests": [ "testName": test]
+                
+                
+            ]
+            
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+            } catch {
+                print("Failed to serialize JSON: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error adding prescription: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+                
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    print("Invalid response")
+                    completion(false)
+                    return
+                }
+                
+                if httpResponse.statusCode == 200 {
+                    print("Prescription added successfully")
+                    completion(true)
+                } else {
+                    print("Failed with status code: \(httpResponse.statusCode)")
+                    completion(false)
+                }
+            }
+            
+            task.resume()
+        }
+    }
+    
+

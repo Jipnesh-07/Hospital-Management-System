@@ -84,7 +84,7 @@ struct DoctorAppointment: Codable, Identifiable {
         case evening = "Evening"
     }
     
-    struct Test: Codable {
+    struct Test: Codable, Hashable {
         
         var testName: String
         var result: String
@@ -93,6 +93,12 @@ struct DoctorAppointment: Codable, Identifiable {
         private enum CodingKeys: String, CodingKey {
             case testName
             case result
+        }
+        
+        init(from decoder: Decoder) throws {
+            let container: KeyedDecodingContainer<DoctorAppointment.Test.CodingKeys> = try decoder.container(keyedBy: DoctorAppointment.Test.CodingKeys.self)
+            self.testName = try container.decodeIfPresent(String.self, forKey: DoctorAppointment.Test.CodingKeys.testName) ?? ""
+            self.result = try container.decodeIfPresent(String.self, forKey: DoctorAppointment.Test.CodingKeys.result) ?? ""
         }
         
     }
@@ -121,6 +127,21 @@ struct DoctorAppointment: Codable, Identifiable {
         case prescription
         case createdAt
         case updatedAt
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.patient = try container.decode(PatientAppointmentData.self, forKey: .patient)
+        self.symptom = try container.decodeIfPresent(String.self, forKey: .symptom)
+        self.doctor = try container.decode(String.self, forKey: .doctor)
+        self.date = try container.decode(Date.self, forKey: .date)
+        self.timeSlot = try container.decode(DoctorAppointment.TimeSlot.self, forKey: .timeSlot)
+        self.status = try container.decode(String.self, forKey: .status)
+        self.tests = try container.decodeIfPresent([DoctorAppointment.Test].self, forKey: .tests)
+        self.prescription = try container.decode(String.self, forKey: .prescription)
+        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
     }
 }
 
