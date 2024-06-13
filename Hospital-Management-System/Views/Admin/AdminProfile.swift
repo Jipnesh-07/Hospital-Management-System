@@ -75,7 +75,7 @@ struct AdminProfile: View {
                     .background(Color(UIColor.systemGroupedBackground))
 
                     VStack(spacing: 1) {
-                        NavigationLink(destination: HelpView()) {
+                        NavigationLink(destination: helpView()) {
                             HStack {
                                 Image(systemName: "questionmark.circle")
                                     .foregroundColor(.blue)
@@ -89,7 +89,7 @@ struct AdminProfile: View {
                             .background(Color.white)
                         }
 
-                        NavigationLink(destination: PrivacyPolicyView()) {
+                        NavigationLink(destination: privacyPolicy()) {
                             HStack {
                                 Image(systemName: "lock.circle")
                                     .foregroundColor(.blue)

@@ -43,7 +43,7 @@ struct AddSchedule: View {
                         initializeTimes(from: schedule)
                     }
                 } else {
-                    Text("No schedule available.")
+                    Text("No Slots Avialable")
                 }
             }
             //.navigationBarBackButtonHidden(true)

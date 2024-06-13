@@ -16,7 +16,7 @@ struct User: Codable, Identifiable {
     let approved: Bool
     let email: String
     let password: String
-    let licenseNumber: String?
+    let licenseNumber: Int?
     let specialization: String?
     let schedule: [Schedule]?
     let experience: String?
@@ -66,7 +66,7 @@ struct User: Codable, Identifiable {
         self.bloodGroup = try container.decodeIfPresent(String.self, forKey: .bloodGroup)
         self.height = try container.decodeIfPresent(Int.self, forKey: .height)
         self.weight = try container.decodeIfPresent(Int.self, forKey: .weight)
-        self.licenseNumber = try container.decodeIfPresent(String.self, forKey: .licenseNumber)
+        self.licenseNumber = try container.decodeIfPresent(Int.self, forKey: .licenseNumber)
         self.specialization = try container.decodeIfPresent(String.self, forKey: .specialization)
         self.experience = try container.decodeIfPresent(String.self, forKey: .experience)
     }

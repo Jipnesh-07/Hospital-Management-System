@@ -8,90 +8,127 @@
 import SwiftUI
 
 struct ProfileContentView: View {
-    @Environment(\.presentationMode) var presentationMode
-    @State private var isHealthDetailsPresented = false
+    @State private var isLoggedOut = false
+    
+    private func logout() {
+        // Clear all data stored in UserDefaults
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: "firstName")
+        defaults.removeObject(forKey: "lastName")
+        defaults.removeObject(forKey: "email")
+        defaults.removeObject(forKey: "age")
+        defaults.removeObject(forKey: "gender")
+        defaults.removeObject(forKey: "bloodGroup")
+        defaults.removeObject(forKey: "height")
+        defaults.removeObject(forKey: "weight")
+        defaults.removeObject(forKey: "authToken")
+        defaults.removeObject(forKey: "userType")
+        defaults.removeObject(forKey: "authToken")
+        
+        // Set isLoggedOut to true to trigger the navigation to sign-in screen
+        isLoggedOut = true
+    }
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                HStack {
-                    Spacer()
-                    Button("Done") {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                }
-                .padding()
-                .background(Color(red: 241/255, green: 241/255, blue: 246/255))
-                
-                List {
-                    VStack(spacing: 0) {
-                        Image("doctor")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 75, height: 75)
-                            .background(Color(.gray))
-                            .clipShape(Circle())
+            ScrollView {
+                VStack(spacing: 20) {
+                    ProfileHeaderView2()
+                    
+                    VStack(spacing: 1) {
+                        NavigationLink(destination: PersonalInformationView2()) {
+                            HStack {
+                                Image(systemName: "person.circle")
+                                    .foregroundColor(.blue)
+                                Text("Personal Information")
+                                    .foregroundColor(.black)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.gray)
+                            }
+                            .padding()
+                            .background(Color.white)
+                        }
                         
-                        Text("Dr Rohan Sharma")
-                            .font(.largeTitle)
-                            .fontWeight(.semibold)
+//                        NavigationLink(destination: AdminPatientsListView()) {
+//                            HStack {
+//                                Image(systemName: "person.3")
+//                                    .foregroundColor(.blue)
+//                                Text("Patients")
+//                                    .foregroundColor(.black)
+//                                Spacer()
+//                                Image(systemName: "chevron.right")
+//                                    .foregroundColor(.gray)
+//                            }
+//                            .padding()
+//                            .background(Color.white)
+//                        }
+//                        
+//                        NavigationLink(destination: AdminLabView()) {
+//                            HStack {
+//                                Image(systemName: "flask")
+//                                    .foregroundColor(.blue)
+//                                Text("Laboratory")
+//                                    .foregroundColor(.black)
+//                                Spacer()
+//                                Image(systemName: "chevron.right")
+//                                    .foregroundColor(.gray)
+//                            }
+//                            .padding()
+//                            .background(Color.white)
+//                        }
                     }
-                    .frame(maxWidth: .infinity, maxHeight: 150)
-                    .background(Color(red: 241/255, green: 241/255, blue: 246/255))
-                    .listRowInsets(EdgeInsets())
+                    .background(Color(UIColor.systemGroupedBackground))
                     
-                    Group {
-                        NavigationLink(destination: HealthDetailsView()) {
-                            Text("Personal information")
+                    VStack(spacing: 1) {
+                        NavigationLink(destination: helpView()) {
+                            HStack {
+                                Image(systemName: "questionmark.circle")
+                                    .foregroundColor(.blue)
+                                Text("Help")
+                                    .foregroundColor(.black)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.gray)
+                            }
+                            .padding()
+                            .background(Color.white)
                         }
-                        NavigationLink(destination: Text("Medical Credentials View")) {
-                            Text("Medical Credentials")
+                        
+                        NavigationLink(destination: privacyPolicy()) {
+                            HStack {
+                                Image(systemName: "lock.circle")
+                                    .foregroundColor(.blue)
+                                Text("Privacy Policy")
+                                    .foregroundColor(.black)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.gray)
+                            }
+                            .padding()
+                            .background(Color.white)
                         }
                     }
+                    .background(Color(UIColor.systemGroupedBackground))
                     
-                    Section(header: Text("Features")
-                        .font(.title3)
-                        .textCase(.none)
-                        .foregroundColor(.black)) {
-                            NavigationLink(destination: Text("Subscriptions View")) {
-                                Text("Subscriptions")
-                            }
-                            NavigationLink(destination: Text("Notifications View")) {
-                                Text("Notifications")
-                            }
-                        }
-                    
-                    Section(header: Text("Privacy")
-                        .font(.title3)
-                        .textCase(.none)
-                        .foregroundColor(.black)) {
-                            NavigationLink(destination: Text("Apps and Services View")) {
-                                Text("Apps and Services")
-                            }
-                            NavigationLink(destination: Text("Research Studies View")) {
-                                Text("Research Studies")
-                            }
-                            NavigationLink(destination: Text("Devices View")) {
-                                Text("Devices")
-                            }
-                        }
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Your data is encrypted on your device and can only be shared with your permission.")
-                            .font(.system(size: 12))
-                            .foregroundColor(.gray)
-                            .padding(.horizontal, 14)
-                            .padding(.bottom, 100)
+                    Button(action: {
+                        logout()
+                    }) {
+                        Text("Sign Out")
+                            .foregroundColor(.red)
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding()
+                            .background(Color.white)
                     }
-                    .background(Color(red: 241/255, green: 241/255, blue: 246/255))
-                    .listRowInsets(EdgeInsets())
                 }
-                .listStyle(GroupedListStyle())
+                .padding(.top, 20)
+                .fullScreenCover(isPresented: $isLoggedOut) {
+                    userSignIn()
+                }
             }
-            .navigationBarBackButtonHidden(true)
-            .sheet(isPresented: $isHealthDetailsPresented) {
-                HealthDetailsView()
-            }
+            .background(Color(UIColor.systemGroupedBackground))
+            .navigationTitle("Account")
         }
     }
 }
@@ -99,3 +136,34 @@ struct ProfileContentView: View {
 #Preview {
     ProfileContentView()
 }
+
+
+
+
+struct ProfileHeaderView2: View {
+    let email: String = UserDefaults.standard.string(forKey: "email") ?? ""
+    var body: some View {
+        VStack {
+            Image("user2")
+                .resizable()
+                .frame(width: 80, height: 80)
+                .padding(.top, 40)
+            
+            Text(email)
+                .font(.subheadline)
+                .foregroundColor(.blue)
+                .padding(.bottom, 20)
+        }
+        .frame(maxWidth: .infinity)
+        .background(Color(UIColor.systemGroupedBackground))
+    }
+}
+
+struct PersonalInformationView2: View {
+    var body: some View {
+        VStack{
+          HealthDetailsView()
+        }
+    }
+}
+

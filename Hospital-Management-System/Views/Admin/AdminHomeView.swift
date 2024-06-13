@@ -174,6 +174,14 @@ var body: some View {
                 }
             }
             .navigationTitle("Admin")
+            .navigationBarItems(trailing:
+                                    NavigationLink(destination: EmergencyRequestsView()) {
+                                        Image(systemName: "light.beacon.max")
+                                            .font(.title3)
+                                            .foregroundColor(.red)
+                                            
+                                    }
+                                )
         }
         .navigationBarItems(trailing: Button(action: {
             showModal = true

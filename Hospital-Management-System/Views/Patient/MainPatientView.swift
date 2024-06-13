@@ -34,8 +34,8 @@ struct MainPatientView: View {
                 }
             
             
-//            ProfileContentView()
-            HealthDetailsView()
+            ProfileContentView()
+//            HealthDetailsView()
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }

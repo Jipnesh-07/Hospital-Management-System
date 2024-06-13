@@ -362,5 +362,46 @@ class PatientService:ObservableObject {
 
         task.resume()
     }
+    
+    func bookEmergency(description: String, completion: @escaping (Result<EmergencyResponse, Error>) -> Void) {
+                guard let url = URL(string: "\(baseURL)/emergency") else {
+                    completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+                    return
+                }
+                
+                var request = URLRequest(url: url)
+                request.httpMethod = "POST"
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                
+                let parameters: [String: Any] = ["description": description]
+                
+                do {
+                    request.httpBody = try JSONSerialization.data(withJSONObject: parameters)
+                } catch {
+                    completion(.failure(error))
+                    return
+                }
+                
+                URLSession.shared.dataTask(with: request) { data, response, error in
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    
+                    guard let data = data else {
+                        completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                        return
+                    }
+                    
+                    do {
+                        let decoder = JSONDecoder()
+                        let response = try decoder.decode(EmergencyResponse.self, from: data)
+                        completion(.success(response))
+                    } catch {
+                        completion(.failure(error))
+                    }
+                }.resume()
+            }
 
 }

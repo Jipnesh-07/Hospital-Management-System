@@ -14,10 +14,10 @@ struct CompleteAppointmentView: View {
         VStack(spacing: 0) {
             HStack {
                 Spacer()
-                Button("Done") {}
-                    .padding()
-                    .foregroundColor(.blue)
-                    .font(.system(size: 16, weight: .bold))
+//                Button("Done") {}
+//                    .padding()
+//                    .foregroundColor(.blue)
+//                    .font(.system(size: 16, weight: .bold))
             }
             .background(Color(red: 241/255, green: 241/255, blue: 246/255))
             

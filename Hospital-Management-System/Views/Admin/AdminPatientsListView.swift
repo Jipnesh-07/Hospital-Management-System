@@ -18,7 +18,7 @@ struct AdminPatientsListView: View {
     }
 
     var body: some View {
-        NavigationView {
+//        NavigationView {
             VStack {
                 // Custom search bar
                 HStack {
@@ -77,7 +77,7 @@ struct AdminPatientsListView: View {
                 .listStyle(PlainListStyle())
             }
             .navigationTitle("Patients")
-        }
+//        }
         .onAppear {
             networkManager.getAllPatients()
         }

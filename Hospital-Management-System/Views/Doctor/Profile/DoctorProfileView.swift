@@ -82,14 +82,14 @@ struct DoctorProfileView: View {
                         }
                         .frame(height: 40)
                         
-                        HStack {
-                            Text("Medical License no.")
-                            Spacer()
-                            Text(licenseNumber)
-                                .foregroundColor(.black)
-                                .fontWeight(.semibold)
-                        }
-                        .frame(height: 40)
+//                        HStack {
+//                            Text("Medical License no.")
+//                            Spacer()
+//                            Text(licenseNumber)
+//                                .foregroundColor(.black)
+//                                .fontWeight(.semibold)
+//                        }
+//                        .frame(height: 40)
                         
                         HStack {
                             Text("Specialisation")

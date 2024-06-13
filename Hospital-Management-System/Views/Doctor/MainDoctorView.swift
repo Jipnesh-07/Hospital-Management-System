@@ -11,11 +11,11 @@ struct MainDoctorView: View {
     var body: some View {
         TabView {
             
-            DoctorHomeView()
-                .tabItem {
-                    Label("Home", systemImage: "house")
-                    
-                }
+//            DoctorHomeView()
+//                .tabItem {
+//                    Label("Home", systemImage: "house")
+//                    
+//                }
             
             DoctorAppointmentView()
                 .tabItem {

@@ -96,7 +96,7 @@ struct userSignIn: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(.accent)
                         .cornerRadius(10)
                         .padding(.horizontal, 30)
                         .padding(.top, 20)
@@ -112,9 +112,11 @@ struct userSignIn: View {
                     Button(action: {
                         // Handle sign up action
                     }) {
-                        Text("Sign up")
-                            .font(.subheadline)
-                            .foregroundColor(.blue)
+                        NavigationLink(destination: UserSignUp()){
+                            Text("Sign up")
+                                .font(.subheadline)
+                                .foregroundColor(.blue)
+                        }
                     }
                 }
                 .padding(.bottom, 20)

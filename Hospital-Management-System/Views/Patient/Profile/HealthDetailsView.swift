@@ -21,7 +21,7 @@ struct HealthDetailsView: View {
     @State private var isLoggedOut = false
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             VStack(spacing: 0) {
                 Spacer()
                 HStack {
@@ -116,7 +116,7 @@ struct HealthDetailsView: View {
             .fullScreenCover(isPresented: $isLoggedOut) {
                 userSignIn()
             }
-        }
+//        }
     }
     
     private func logout() {

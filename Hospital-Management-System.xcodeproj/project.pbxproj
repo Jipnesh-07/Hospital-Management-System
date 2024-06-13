@@ -51,6 +51,13 @@
 		FAB942E52C1B084000320ACF /* AdminLabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB942E42C1B084000320ACF /* AdminLabView.swift */; };
 		FAB942E72C1B085A00320ACF /* AdminPatientsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB942E62C1B085A00320ACF /* AdminPatientsListView.swift */; };
 		FAB942E92C1B09D000320ACF /* MainAdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB942E82C1B09D000320ACF /* MainAdminView.swift */; };
+		FAB942EB2C1B646B00320ACF /* helpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB942EA2C1B646B00320ACF /* helpView.swift */; };
+		FAB942ED2C1B656A00320ACF /* privacyPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB942EC2C1B656A00320ACF /* privacyPolicy.swift */; };
+		FAB942EF2C1B7E7800320ACF /* EmergencyAdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB942EE2C1B7E7800320ACF /* EmergencyAdminView.swift */; };
+		FAB942F12C1B7EBA00320ACF /* EmergencyAdminViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB942F02C1B7EBA00320ACF /* EmergencyAdminViewModel.swift */; };
+		FAB942F42C1B7F0100320ACF /* EmergencyBookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB942F32C1B7F0100320ACF /* EmergencyBookingView.swift */; };
+		FAB942F62C1B7F2B00320ACF /* EmergencyBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB942F52C1B7F2B00320ACF /* EmergencyBookingViewModel.swift */; };
+		FAB942F82C1B96DE00320ACF /* personalInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB942F72C1B96DE00320ACF /* personalInformation.swift */; };
 		FABDC3542C1233D900464A9F /* bookLabAppointmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABDC3532C1233D900464A9F /* bookLabAppointmentsView.swift */; };
 		FABF630B2C11AC1E00F7EB75 /* BookAppointmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABF630A2C11AC1E00F7EB75 /* BookAppointmentView.swift */; };
 		FAC07AF62C14BD5000589388 /* labController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC07AF52C14BD5000589388 /* labController.swift */; };
@@ -104,6 +111,13 @@
 		FAB942E42C1B084000320ACF /* AdminLabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminLabView.swift; sourceTree = "<group>"; };
 		FAB942E62C1B085A00320ACF /* AdminPatientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPatientsListView.swift; sourceTree = "<group>"; };
 		FAB942E82C1B09D000320ACF /* MainAdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAdminView.swift; sourceTree = "<group>"; };
+		FAB942EA2C1B646B00320ACF /* helpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helpView.swift; sourceTree = "<group>"; };
+		FAB942EC2C1B656A00320ACF /* privacyPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = privacyPolicy.swift; sourceTree = "<group>"; };
+		FAB942EE2C1B7E7800320ACF /* EmergencyAdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyAdminView.swift; sourceTree = "<group>"; };
+		FAB942F02C1B7EBA00320ACF /* EmergencyAdminViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyAdminViewModel.swift; sourceTree = "<group>"; };
+		FAB942F32C1B7F0100320ACF /* EmergencyBookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyBookingView.swift; sourceTree = "<group>"; };
+		FAB942F52C1B7F2B00320ACF /* EmergencyBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyBookingViewModel.swift; sourceTree = "<group>"; };
+		FAB942F72C1B96DE00320ACF /* personalInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = personalInformation.swift; sourceTree = "<group>"; };
 		FABDC3532C1233D900464A9F /* bookLabAppointmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bookLabAppointmentsView.swift; sourceTree = "<group>"; };
 		FABF630A2C11AC1E00F7EB75 /* BookAppointmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAppointmentView.swift; sourceTree = "<group>"; };
 		FAC07AF52C14BD5000589388 /* labController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = labController.swift; sourceTree = "<group>"; };
@@ -208,6 +222,7 @@
 		FA537F402C0F9DC8005FC3F9 /* Patient */ = {
 			isa = PBXGroup;
 			children = (
+				FAB942F22C1B7EEF00320ACF /* Emergency */,
 				FA537F472C0F9E2F005FC3F9 /* Profile */,
 				FA537F462C0F9E25005FC3F9 /* LabTests */,
 				FA537F452C0F9E1F005FC3F9 /* Doctors */,
@@ -274,6 +289,8 @@
 			children = (
 				FA537F5C2C0FA17C005FC3F9 /* ProfileContentView.swift */,
 				FA537F5E2C0FA194005FC3F9 /* HealthDetailsView.swift */,
+				FAB942EA2C1B646B00320ACF /* helpView.swift */,
+				FAB942EC2C1B656A00320ACF /* privacyPolicy.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -334,8 +351,20 @@
 				FAB942E42C1B084000320ACF /* AdminLabView.swift */,
 				FAB942E62C1B085A00320ACF /* AdminPatientsListView.swift */,
 				FAB942E82C1B09D000320ACF /* MainAdminView.swift */,
+				FAB942EE2C1B7E7800320ACF /* EmergencyAdminView.swift */,
+				FAB942F02C1B7EBA00320ACF /* EmergencyAdminViewModel.swift */,
+				FAB942F72C1B96DE00320ACF /* personalInformation.swift */,
 			);
 			path = Admin;
+			sourceTree = "<group>";
+		};
+		FAB942F22C1B7EEF00320ACF /* Emergency */ = {
+			isa = PBXGroup;
+			children = (
+				FAB942F32C1B7F0100320ACF /* EmergencyBookingView.swift */,
+				FAB942F52C1B7F2B00320ACF /* EmergencyBookingViewModel.swift */,
+			);
+			path = Emergency;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -408,6 +437,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAB942F82C1B96DE00320ACF /* personalInformation.swift in Sources */,
 				FAB1FF5B2C103A7300098E63 /* userSignUp.swift in Sources */,
 				FAB1FF5F2C105DBC00098E63 /* auth.swift in Sources */,
 				FA537F262C0F8197005FC3F9 /* ContentView.swift in Sources */,
@@ -422,13 +452,16 @@
 				FAB1FF632C10AA3900098E63 /* LabTestsList.swift in Sources */,
 				FAB942DD2C1B076600320ACF /* DoctorApprovalList.swift in Sources */,
 				FA537F6B2C0FAB20005FC3F9 /* DoctorProfileView.swift in Sources */,
+				FAB942EF2C1B7E7800320ACF /* EmergencyAdminView.swift in Sources */,
 				ED816EEE2C19562400FCD223 /* AddSchedule.swift in Sources */,
 				FABDC3542C1233D900464A9F /* bookLabAppointmentsView.swift in Sources */,
 				FAB942DF2C1B07AB00320ACF /* DoctorInformationView.swift in Sources */,
+				FAB942F62C1B7F2B00320ACF /* EmergencyBookingViewModel.swift in Sources */,
 				ED7F754E2C18DBE2005DB7B8 /* doctorController.swift in Sources */,
 				FAE2454C2C146FB9007A45E0 /* adminController.swift in Sources */,
 				ED816EF02C1A147400FCD223 /* DetailAppointmentView.swift in Sources */,
 				FAB942E92C1B09D000320ACF /* MainAdminView.swift in Sources */,
+				FAB942ED2C1B656A00320ACF /* privacyPolicy.swift in Sources */,
 				FA537F5D2C0FA17C005FC3F9 /* ProfileContentView.swift in Sources */,
 				FAB1FF582C10185800098E63 /* Appointment.swift in Sources */,
 				FA537F242C0F8197005FC3F9 /* Hospital_Management_SystemApp.swift in Sources */,
@@ -442,6 +475,7 @@
 				FAB942E72C1B085A00320ACF /* AdminPatientsListView.swift in Sources */,
 				FA537F672C0FAB00005FC3F9 /* ScheduledAppointmentsView.swift in Sources */,
 				FAB942E12C1B07E700320ACF /* DoctorCategoryListView.swift in Sources */,
+				FAB942F42C1B7F0100320ACF /* EmergencyBookingView.swift in Sources */,
 				FA537F3F2C0F9638005FC3F9 /* User.swift in Sources */,
 				ED7F754C2C18DAF2005DB7B8 /* AddDiagnoseView.swift in Sources */,
 				ED7F754A2C18D9FB005DB7B8 /* completedDiagonesView.swift in Sources */,
@@ -453,8 +487,10 @@
 				FAB942E32C1B081500320ACF /* AdminProfile.swift in Sources */,
 				FA537F572C0FA0C3005FC3F9 /* CategoriesListView.swift in Sources */,
 				FABF630B2C11AC1E00F7EB75 /* BookAppointmentView.swift in Sources */,
+				FAB942EB2C1B646B00320ACF /* helpView.swift in Sources */,
 				FA9321032C1A319B0026F453 /* mainPatientBannerCardView.swift in Sources */,
 				FAFA32FA2C1AF3FB00D9A061 /* CompletePatientAppointmentView.swift in Sources */,
+				FAB942F12C1B7EBA00320ACF /* EmergencyAdminViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -132,6 +132,29 @@ struct Doctor: Identifiable, Codable {
         case updatedAt
         case schedule
     }
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.accountType = try container.decode(String.self, forKey: .accountType)
+        self.firstName = try container.decode(String.self, forKey: .firstName)
+        self.lastName = try container.decode(String.self, forKey: .lastName)
+        self.age = try container.decode(Int.self, forKey: .age)
+        self.gender = try container.decode(String.self, forKey: .gender)
+        self.phoneNumber = try container.decode(Int.self, forKey: .phoneNumber)
+        self.approved = try container.decode(Bool.self, forKey: .approved)
+        self.email = try container.decode(String.self, forKey: .email)
+        self.password = try container.decode(String.self, forKey: .password)
+        self.labTestAppointments = try container.decodeIfPresent([TestDetails].self, forKey: .labTestAppointments)
+        self.fees = try container.decode(String.self, forKey: .fees)
+        self.about = try container.decode(String.self, forKey: .about)
+        self.specialization = try container.decode(String.self, forKey: .specialization)
+        self.experience = try container.decode(String.self, forKey: .experience)
+        self.qualification = try container.decode(String.self, forKey: .qualification)
+        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
+        self.schedule = try container.decodeIfPresent([Schedule].self, forKey: .schedule)
+    }
 }
 
 

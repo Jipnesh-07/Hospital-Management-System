@@ -8,7 +8,7 @@
 import Foundation
 
 class AdminService{
-    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGhvc3BpdGFsLmNvbSIsImlkIjoiNjY2NDIxZmU1ZmRmOTg2OTZiMjBkNTA2IiwiaWF0IjoxNzE3ODM4Mzk1fQ.C8z_2Ky8CO66r-IdqNqvwkcdD60lGmPFReJoma75fUs"
+    let token: String = UserDefaults.standard.string(forKey: "authToken") ?? ""
     
     let baseURL = "https://hms-backend-1-1aof.onrender.com/admin"
     
@@ -120,19 +120,55 @@ class AdminService{
             task.resume()
         }
     
+    func getEmergencyRequests(completion: @escaping (Result<[EmergencyAdminRequest], Error>) -> Void) {
+            let urlString = "\(baseURL)/emergency"
+            guard let url = URL(string: urlString) else {
+                completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let data = data else {
+                    completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                    return
+                }
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let emergencyResponse = try decoder.decode(EmergencyAdminResponse.self, from: data)
+                    completion(.success(emergencyResponse.emergencyRequests))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+            
+            task.resume()
+        }
+    
     
 }
 
 
 class NetworkManagerOfAdmin: ObservableObject {
     @Published var patients: [PatientForAdmin] = []
+    let token: String = UserDefaults.standard.string(forKey: "authToken") ?? ""
     
     func getAllPatients() {
         guard let url = URL(string: "https://hms-backend-1-1aof.onrender.com/admin/patients") else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGhvc3BpdGFsLmNvbSIsImlkIjoiNjY2NDIxZmU1ZmRmOTg2OTZiMjBkNTA2IiwiaWF0IjoxNzE3OTU5NDg5fQ.y_NH-WBnxFDfZLNJvxnI8zTxouAltKZa_JPAYvF7284", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
@@ -157,5 +193,5 @@ class NetworkManagerOfAdmin: ObservableObject {
             }
         }.resume()
     }
+    
 }
-

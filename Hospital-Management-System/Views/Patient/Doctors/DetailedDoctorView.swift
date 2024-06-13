@@ -80,21 +80,30 @@ struct DoctorInformationPatientView: View {
                     .cornerRadius(10)
                     .padding(.horizontal)
                 
-                //                HStack {
-                //                    Text("Document")
-                //                        .font(.headline)
-                //                    Spacer()
-                //                    Button(action: {
-                //                        showingDocument.toggle()
-                //                    }) {
-                //                        Text("View Document")
-                //                            .foregroundColor(.blue)
-                //                    }
-                //                    .sheet(isPresented: $showingDocument) {
-                //                        DocumentView(imageName: viewModel.doctor.email)
-                //                    }
-                //                }
-                //                .padding(.horizontal)
+
+                if let schedules = viewModel.doctor.schedule {
+                                    ForEach(schedules, id: \.date) { schedule in
+                                        VStack(alignment: .leading) {
+                                            Text("Slot Timmings")
+                                                .font(.headline)
+                                                .padding(.horizontal)
+                                            
+                                            HStack {
+                                                ForEach(schedule.slots, id: \.timeSlot) { slot in
+                                                    VStack {
+                                                        Text(slot.timeSlot)
+                                                        Text("\(slot.startTime)")
+                                                        Text("\(slot.endTime)")
+                                                    }
+                                                }
+                                            }
+                                            .padding()
+                                            .background(Color(.systemGray6))
+                                            .cornerRadius(10)
+                                            .padding(.horizontal)
+                                        }
+                                    }
+                                }
                 
                 HStack(spacing: 20) {
                     Button(action: {

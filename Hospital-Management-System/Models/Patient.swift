@@ -7,8 +7,27 @@
 
 import Foundation
 import SwiftUI
-struct Patient: Codable{
+
+
+struct EmergencyResponse: Codable {
+    let success: Bool
+    let emergencyRequest: EmergencyRequest
     
+    struct EmergencyRequest: Codable {
+        let patient: String
+        let status: String
+        let description: String
+        let _id: String
+        let timestamp: String
+        let createdAt: String
+        let updatedAt: String
+        let __v: Int
+    }
+}
+
+
+
+struct Patient: Codable{
     let user: User
     let bloodGroup: String
     let weight: Int

@@ -70,11 +70,12 @@ struct PatientAppointmentVeiw: View {
                 List(filteredAppointments) { appointment in
                     NavigationLink(destination: CompletePatientAppointmentView(appointment: appointment)) {
                         PatientRow(appointment: appointment)
-                            .listRowInsets(EdgeInsets())
+//                            .listRowInsets(EdgeInsets())
+                            .listRowSeparator(.hidden)
+                            .listSectionSeparator(.hidden)
                     }
                 }
                 .listStyle(PlainListStyle())
-                
                 .navigationTitle("Appointments")
             }
             
@@ -89,43 +90,44 @@ struct PatientAppointmentVeiw: View {
     
     struct PatientRow: View {
         let appointment: PatientAppointment
-        
-        var body: some View {
-            HStack {
-                Image("user1") // Use a default image or a placeholder
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 50, height: 50)
-                    .clipShape(Circle())
-                    .padding(.trailing, 10)
                 
-                VStack(alignment: .leading, spacing: 5) {
-                    Text("\(appointment.doctor.firstName) \(appointment.doctor.lastName)")
-                        .font(.headline)
-                    
-                    
-                    Text("Symptom: \(appointment.symptom)")
-                        .font(.callout)
-                        .foregroundColor(.gray)
+                var body: some View {
+                    HStack {
+                        Image("user1") // Use a default image or a placeholder
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                            .padding(.trailing, 10)
+                        
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("\(appointment.doctor.firstName) \(appointment.doctor.lastName)")
+                                .font(.headline)
+                            
+                            Text("Symptom: \(appointment.symptom)")
+                                .font(.callout)
+                                .foregroundColor(.gray)
+                        }
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .trailing, spacing: 4) {
+                            Text(dateFormatter.string(from: appointment.date))
+                                .font(.subheadline)
+                            Text(appointment.timeSlot.rawValue)
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    .padding(12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                            .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                    )
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 5)
                 }
-                Spacer()
-                VStack(alignment: .trailing, spacing: 4) {
-                    Text(dateFormatter.string(from: appointment.date))
-                        .font(.subheadline)
-                    Text(appointment.timeSlot.rawValue)
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                }
-            }
-            .padding(12)
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.white)
-                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
-            )
-            .padding(.horizontal, 16)
-            .padding(.vertical, 5)
-        }
     }
     
     struct ProfileView_Previews: PreviewProvider {

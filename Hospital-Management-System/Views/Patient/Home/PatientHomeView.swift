@@ -8,6 +8,12 @@
 
 import SwiftUI
 
+let dateFormatter2: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd MMM, yy"
+    return formatter
+}()
+
 struct PatientHomeView: View {
     @StateObject private var patientService = PatientService()
     @State private var showHealthDetails = false
@@ -49,6 +55,7 @@ struct PatientHomeView: View {
                         HStack(spacing: 16) {
                             ForEach(patientService.appointments.prefix(5)) { appointment in
                                 AppointmentCardView(appointment: appointment)
+                                    .transition(.slide)
                             }
                         }
                         .padding(.horizontal)
@@ -203,6 +210,14 @@ struct PatientHomeView: View {
                     }
                 }
             }.navigationTitle("Home")
+                .navigationBarItems(trailing:
+                                        NavigationLink(destination: EmergencyBookingView()) {
+                                            Image(systemName: "light.beacon.max")
+                                                .font(.title3)
+                                                .foregroundColor(.red)
+                                                
+                                        }
+                                    )
                 .background(Color(red: 243/255, green: 241/255, blue: 239/255))
         }
         .searchable(text: $searchText)
@@ -253,18 +268,27 @@ struct AppointmentCardView: View {
                 .padding(.top,-9)
                 
                 Spacer().frame(height: 1)
+                Spacer()
+                Divider()
                 HStack{
                     
                     HStack{
                         
                         
                         Text("\(appointment.timeSlot)")
-                            .font(.system(size: 14))
+                            .font(.system(size: 15))
                             .fontWeight(.bold)
+                            .foregroundColor(Color(.darkGray))
                             .padding(9)
-                            .background(RoundedRectangle(cornerRadius: 12).stroke(Color.gray, lineWidth: 1))
-                        
+//                            .background(RoundedRectangle(cornerRadius: 12).stroke(Color.gray, lineWidth: 1))
+                        Spacer()
+                        Text(dateFormatter2.string(from: appointment.date))
+                            .font(.system(size: 15))
+                            .fontWeight(.bold)
+                            .foregroundColor(Color(.darkGray))
+                            .padding(9)
                     }
+                
                     Spacer()
                     
 //                    Text("↓")
