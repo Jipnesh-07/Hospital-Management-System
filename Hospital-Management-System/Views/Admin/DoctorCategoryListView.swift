@@ -1,19 +1,9 @@
+
 import SwiftUI
 
-struct DoctorCategoryListPatientView: View {
+struct DoctorCategoryListView: View {
     @State private var searchTitle: String = ""
     @State private var doctorsBySpecialization: [String: [Doctor]] = [:]
-    
-    // Mapping category names to image names and descriptions
-    let categoryDetails: [String: (imageName: String, description: String)] = [
-        "Cardiologist": ("heart", "Heart and Blood vessels"),
-        "Dermatology": ("rash", "Skin, hair, and nails."),
-        "Anesthesiology": ("heel", "Pain relief"),
-        "Gastroenterology": ("stomach", "Digestive system disorders"),
-        "Neurology": ("brain", "Brain and neurons"),
-        "Gynecology": ("uterus", "Female reproductive system"),
-        "Ophthalmology": ("read", "Eyes")
-    ]
     
     var body: some View {
         NavigationView {
@@ -33,13 +23,9 @@ struct DoctorCategoryListPatientView: View {
                     // List of Categories
                     ForEach(doctorsBySpecialization.keys.sorted(), id: \.self) { specialization in
                         Section {
-                            NavigationLink(destination: DoctorsListBookingView(doctors: doctorsBySpecialization[specialization] ?? [])) {
+                            NavigationLink(destination: DoctorsListView(doctors: doctorsBySpecialization[specialization] ?? [])) {
                                 VStack(spacing: 16) {
-                                    if let details = categoryDetails[specialization] {
-                                        CategoryRowPatient(category: CategoryOfPatient(imageName: details.imageName, name: specialization, description: details.description))
-                                    } else {
-                                        CategoryRowPatient(category: CategoryOfPatient(imageName: "default", name: specialization, description: ""))
-                                    }
+                                    CategoryRow(category: Category2(imageName: specialization, name: specialization, description: ""))
                                 }
                             }
                         }
@@ -50,7 +36,6 @@ struct DoctorCategoryListPatientView: View {
                 }
             }
             .navigationTitle("Doctors")
-            .background(Color(red: 243/255, green: 241/255, blue: 239/255))
             .searchable(text: $searchTitle)
             .onAppear {
                 fetchDoctors()
@@ -59,24 +44,24 @@ struct DoctorCategoryListPatientView: View {
     }
     
     func fetchDoctors() {
-        let doctorCategory = DoctorAPI()
-        doctorCategory.getDoctors { result in
-            switch result {
-            case .success(let doctorResponse):
-                let approvedDoctors = doctorResponse.data.filter { $0.approved }
-                let groupedDoctors = Dictionary(grouping: approvedDoctors, by: { $0.specialization })
-                DispatchQueue.main.async {
-                    doctorsBySpecialization = groupedDoctors
+            let doctorCategory = DoctorAPI()
+            doctorCategory.getDoctors { result in
+                switch result {
+                case .success(let doctorResponse):
+                    let approvedDoctors = doctorResponse.data.filter { $0.approved }
+                    let groupedDoctors = Dictionary(grouping: approvedDoctors, by: { $0.specialization })
+                    DispatchQueue.main.async {
+                        doctorsBySpecialization = groupedDoctors
+                    }
+                case .failure(let error):
+                    print("Error fetching doctors: \(error.localizedDescription)")
                 }
-            case .failure(let error):
-                print("Error fetching doctors: \(error.localizedDescription)")
             }
         }
-    }
 }
 
-struct CategoryRowPatient: View {
-    var category: CategoryOfPatient
+struct CategoryRow: View {
+    var category: Category2
     
     var body: some View {
         HStack {
@@ -88,7 +73,6 @@ struct CategoryRowPatient: View {
             VStack(alignment: .leading) {
                 Text(category.name)
                     .font(.headline)
-                    .foregroundColor(.black)
                 Text(category.description)
                     .font(.subheadline)
                     .foregroundColor(.gray)
@@ -104,45 +88,56 @@ struct CategoryRowPatient: View {
 }
 
 // Data Model
-struct CategoryOfPatient: Identifiable {
+struct Category2: Identifiable {
     var id = UUID()
     var imageName: String
     var name: String
     var description: String
-    
-    init(id: UUID = UUID(), imageName: String, name: String, description: String) {
-        self.id = id
-        self.imageName = imageName
-        self.name = name
-        self.description = description
-    }
 }
+let sampleCategories = [
+    Category2(imageName: "heart", name: "Cardiologist", description: "Heart and Blood vessels"),
+    Category2(imageName: "rash", name: "Dermatology", description: "Skin, hair, and nails."),
+    Category2(imageName: "heel", name: "Anesthesiology", description: "Pain relief"),
+    Category2(imageName: "stomach", name: "Gastroenterology", description: "Digestive system disorders"),
+    Category2(imageName: "brain", name: "Neurology", description: "Brain and neurone"),
+    Category2(imageName: "uterus", name: "Gynecology", description: "Female reproductive system"),
+    Category2(imageName: "read", name: "Ophthalmology", description: "Eyes")
+]
 
 
-struct DoctorsListBookingView: View {
+
+
+
+struct DoctorsListView: View {
     var doctors: [Doctor]
+    @State private var searchText: String = ""
+    
+    // Computed property to filter doctors based on search text
+    var filteredDoctors: [Doctor] {
+        if searchText.isEmpty {
+            return doctors
+        } else {
+            return doctors.filter { doctor in
+                doctor.firstName.lowercased().contains(searchText.lowercased()) ||
+                doctor.lastName.lowercased().contains(searchText.lowercased()) ||
+                String(doctor.phoneNumber).contains(searchText)
+            }
+        }
+    }
     
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                ForEach(doctors) { doctor in
+                ForEach(filteredDoctors) { doctor in
                     VStack(alignment: .leading) {
                         HStack {
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
                                     VStack {
-                                        if doctor.gender == "Male"{
-                                            Image("user2") // Replace with your image
-                                                .resizable()
-                                                .frame(width: 90, height: 90)
-                                                .clipShape(RoundedRectangle(cornerRadius: 9))
-                                        }
-                                        else{
-                                            Image("user3") // Replace with your image
-                                                .resizable()
-                                                .frame(width: 90, height: 90)
-                                                .clipShape(RoundedRectangle(cornerRadius: 9))
-                                        }
+                                        Image("user2") // Replace with your image
+                                            .resizable()
+                                            .frame(width: 90, height: 90)
+                                            .clipShape(RoundedRectangle(cornerRadius: 9))
                                     }
                                     .padding(.top)
                                     
@@ -151,6 +146,9 @@ struct DoctorsListBookingView: View {
                                         Text("\(doctor.firstName) \(doctor.lastName)")
                                             .font(.title3)
                                             .fontWeight(.medium)
+                                        Text(String(doctor.phoneNumber))
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
                                         
                                         Text("\(doctor.specialization)")
                                             .font(.subheadline)
@@ -163,7 +161,7 @@ struct DoctorsListBookingView: View {
                                 }
                                 .padding(.top, -9)
                                 
-                                Spacer().frame(height: 10)
+                                Spacer().frame(height: 20)
                                 HStack {
                                     Text("Fees:  \(doctor.fees)")
                                         .font(.system(size: 14))
@@ -173,7 +171,7 @@ struct DoctorsListBookingView: View {
                                     
                                     Spacer()
                                     
-                                    NavigationLink(destination: DoctorInformationPatientView(viewModel: DoctorInformationViewModelPatient(doctor: doctor))) {
+                                    NavigationLink(destination: DoctorInformationView(viewModel: DoctorInformationViewModel(doctor: doctor))) {
                                         Text("↓")
                                             .font(.system(size: 20))
                                             .frame(width: 24)
@@ -196,12 +194,11 @@ struct DoctorsListBookingView: View {
             .padding()
         }
         .navigationTitle("Doctors")
+        .searchable(text: $searchText)
     }
 }
 
 
 #Preview {
-    DoctorCategoryListPatientView()
+    DoctorCategoryListView()
 }
-
-

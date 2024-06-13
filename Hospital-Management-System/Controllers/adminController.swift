@@ -124,3 +124,38 @@ class AdminService{
 }
 
 
+class NetworkManagerOfAdmin: ObservableObject {
+    @Published var patients: [PatientForAdmin] = []
+    
+    func getAllPatients() {
+        guard let url = URL(string: "https://hms-backend-1-1aof.onrender.com/admin/patients") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGhvc3BpdGFsLmNvbSIsImlkIjoiNjY2NDIxZmU1ZmRmOTg2OTZiMjBkNTA2IiwiaWF0IjoxNzE3OTU5NDg5fQ.y_NH-WBnxFDfZLNJvxnI8zTxouAltKZa_JPAYvF7284", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                // Debug: Print raw JSON response
+                if let jsonString = String(data: data, encoding: .utf8) {
+                    print("Raw JSON response: \(jsonString)")
+                }
+                
+                do {
+                    // Attempt to decode JSON response to a dictionary with "data" key
+                    let decodedResponse = try JSONDecoder().decode(PatientForAdminResponse.self, from: data)
+                    DispatchQueue.main.async {
+                        self.patients = decodedResponse.data
+                        print("Fetched Patients: \(decodedResponse.data)")
+                    }
+                } catch {
+                    // Print error if decoding fails
+                    print("Error decoding response: \(error)")
+                }
+            } else if let error = error {
+                print("HTTP Request Failed: \(error)")
+            }
+        }.resume()
+    }
+}
+

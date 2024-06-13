@@ -2,7 +2,7 @@
 //  MainAdminView.swift
 //  Hospital-Management-System
 //
-//  Created by MACBOOK on 05/06/24.
+//  Created by MACBOOK on 13/06/24.
 //
 
 import SwiftUI
@@ -10,28 +10,29 @@ import SwiftUI
 struct MainAdminView: View {
     var body: some View {
         TabView {
-//            AdminHomeView()
-            VerifyingDoctorsView()
-                .tabItem {
+           AdminHomeView()
+               .tabItem {
                     Label("Home", systemImage: "house")
                     
                 }
             
-            DoctorsList_AdminView()
+            DoctorApprovalList()
+                 .tabItem {
+                     Label("ApprovalList", systemImage: "person.fill.checkmark")
+                 }
+             
+            
+            DoctorCategoryListView()
                 .tabItem {
-                    Label("Doctors", systemImage: "person.badge.clock")
+                    Label("Doctors", systemImage: "list.clipboard.fill")
                     
                 }
             
-            PatientsList_AdminView()
-                .tabItem {
-                    Label("Patients", systemImage: "person.2.fill")
-                }
+          
             
-            
-            LaboratoryTests_AdminView()
+           AdminProfile()
                 .tabItem {
-                    Label("LabTests", systemImage: "person")
+                    Label("Profile", systemImage: "person")
                 }
             
             
@@ -40,6 +41,8 @@ struct MainAdminView: View {
     }
 }
 
-#Preview {
-    MainAdminView()
+struct MainAdminView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainAdminView()
+    }
 }

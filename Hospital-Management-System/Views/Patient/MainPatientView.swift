@@ -16,7 +16,7 @@ struct MainPatientView: View {
                     Label("Home", systemImage: "house")
                     
                 }
-            CategoriesListView()
+           DoctorCategoryListPatientView()
                 .tabItem {
                     Label("Doctors", systemImage: "stethoscope")
                 }

@@ -12,7 +12,7 @@ struct BookAppointmentView: View {
     @State private var showBookingSheet = false
 
     var body: some View {
-        NavigationView {
+//        NavigationView {
             VStack {
                 Spacer()
                 // Automatically show the booking sheet on launch
@@ -20,7 +20,7 @@ struct BookAppointmentView: View {
                 Spacer()
             }
             .navigationBarTitle("Cardiologist", displayMode: .inline)
-        }
+//        }
     }
 }
 
@@ -50,12 +50,13 @@ struct BookingSheetView: View {
 
     var body: some View {
         VStack {
+            Spacer()
             Form {
-                Section(header: Text("Date")) {
+                Section(header: Text("Date*")) {
                     DatePicker("Select Date", selection: $selectedDate, in: currentDate..., displayedComponents: .date)
                 }
 
-                Section(header: Text("Slots")) {
+                Section(header: Text("Slots*")) {
                     Picker("Select Slot", selection: $selectedSlot) {
                         ForEach(slotOptions, id: \.self) { slot in
                             Text(slot)
@@ -64,7 +65,7 @@ struct BookingSheetView: View {
                     .pickerStyle(MenuPickerStyle())
                 }
 
-                Section(header: Text("Symptom")) {
+                Section(header: Text("Symptom*")) {
                     TextField("Symptom", text: $symptom)
                         .onChange(of: symptom) { newValue in
                                                     if !newValue.isEmpty {
@@ -101,13 +102,15 @@ struct BookingSheetView: View {
                     Text("Book Appointment")
                         .foregroundColor(.white)
                         .padding()
+                        .fontWeight(.bold)
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(Color(red: 97/255, green: 120/255, blue: 187/255))
                         .cornerRadius(10)
                     
                 }
             }
         }
+//        .background(Color(red: 243/255, green: 241/255, blue: 239/255))
         
        
           

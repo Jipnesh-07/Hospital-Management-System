@@ -9,6 +9,33 @@
 import Foundation
 import Combine
 
+
+
+
+
+struct Appointment: Codable {
+    let id: String
+    let patient: String
+    let symptom: String
+    let doctor: String
+    let date: String
+    let timeSlot: String
+    let status: String
+    let prescription: String?
+    let createdAt: String
+    let updatedAt: String
+    let tests: [Test]
+    let version: Int
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case patient, symptom, doctor, date, timeSlot, status, prescription, createdAt, updatedAt, tests
+        case version = "__v"
+    }
+}
+
+
+
 struct PatientAppointmentData: Codable {
     var _id: String
     var firstName: String
@@ -57,7 +84,7 @@ struct PatientAppointment: Codable, Identifiable {
     var symptom: String
     var status: String
     var prescription: String?
-    var tests: [String]
+    var tests: [Test]?
     var createdAt: Date
     var updatedAt: Date
     
@@ -74,8 +101,42 @@ struct PatientAppointment: Codable, Identifiable {
         case createdAt
         case updatedAt
     }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.patient = try container.decode(String.self, forKey: .patient)
+        self.doctor = try container.decode(DoctorAppointmentData.self, forKey: .doctor)
+        self.date = try container.decode(Date.self, forKey: .date)
+        self.timeSlot = try container.decode(PatientAppointment.TimeSlot.self, forKey: .timeSlot)
+        self.symptom = try container.decode(String.self, forKey: .symptom)
+        self.status = try container.decode(String.self, forKey: .status)
+        self.prescription = try container.decodeIfPresent(String.self, forKey: .prescription)
+        self.tests = try container.decodeIfPresent([Test].self, forKey: .tests)
+        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
+    }
 }
 
+struct Test: Codable, Hashable {
+    
+    var testName: String
+
+    var result: String
+    
+    
+    private enum CodingKeys: String, CodingKey {
+        case testName
+        case result
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container: KeyedDecodingContainer<Test.CodingKeys> = try decoder.container(keyedBy: Test.CodingKeys.self)
+        self.testName = try container.decodeIfPresent(String.self, forKey: Test.CodingKeys.testName) ?? ""
+        self.result = try container.decodeIfPresent(String.self, forKey: Test.CodingKeys.result) ?? ""
+    }
+    
+}
 
 struct DoctorAppointment: Codable, Identifiable {
     enum TimeSlot: String, Codable {
@@ -84,24 +145,7 @@ struct DoctorAppointment: Codable, Identifiable {
         case evening = "Evening"
     }
     
-    struct Test: Codable, Hashable {
-        
-        var testName: String
-        var result: String
-        
-        
-        private enum CodingKeys: String, CodingKey {
-            case testName
-            case result
-        }
-        
-        init(from decoder: Decoder) throws {
-            let container: KeyedDecodingContainer<DoctorAppointment.Test.CodingKeys> = try decoder.container(keyedBy: DoctorAppointment.Test.CodingKeys.self)
-            self.testName = try container.decodeIfPresent(String.self, forKey: DoctorAppointment.Test.CodingKeys.testName) ?? ""
-            self.result = try container.decodeIfPresent(String.self, forKey: DoctorAppointment.Test.CodingKeys.result) ?? ""
-        }
-        
-    }
+    
     
     var id: String
     var patient: PatientAppointmentData
@@ -138,7 +182,7 @@ struct DoctorAppointment: Codable, Identifiable {
         self.date = try container.decode(Date.self, forKey: .date)
         self.timeSlot = try container.decode(DoctorAppointment.TimeSlot.self, forKey: .timeSlot)
         self.status = try container.decode(String.self, forKey: .status)
-        self.tests = try container.decodeIfPresent([DoctorAppointment.Test].self, forKey: .tests)
+        self.tests = try container.decodeIfPresent([Test].self, forKey: .tests)
         self.prescription = try container.decode(String.self, forKey: .prescription)
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
@@ -165,36 +209,36 @@ struct DoctorAppointmentResponse: Codable {
 //    print("Entered Fetch function")
 //    let urlString = "http://localhost:4000/patient/appointments"
 //    guard let url = URL(string: urlString) else { return }
-//    
+//
 //    var request = URLRequest(url: url)
 //    request.httpMethod = "GET"
 //    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-//    
+//
 //    print("Entered 2")
 //    let task = URLSession.shared.dataTask(with: request) { data, response, error in
 //        if let error = error {
 //            print("Error: \(error)")
 //            return
 //        }
-//        
+//
 //        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
 //            print("Server error")
 //            return
 //        }
-//        
+//
 //        guard let data = data else {
 //            print("No data received")
 //            return
 //        }
-//        
+//
 //        do {
 //            let decoder = JSONDecoder()
-//            
+//
 //            // Custom Date Decoding Strategy
 //            let dateFormatter = DateFormatter()
 //            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 //            decoder.dateDecodingStrategy = .formatted(dateFormatter)
-//            
+//
 //            let appointmentResponse = try decoder.decode(PatientAppointmentResponse.self, from: data)
 //            print("Success: \(appointmentResponse.success)")
 //            for appointment in appointmentResponse.data {
@@ -204,7 +248,7 @@ struct DoctorAppointmentResponse: Codable {
 //            print("Error decoding JSON: \(error)")
 //        }
 //    }
-//    
+//
 //    task.resume()
 //}
 
@@ -259,6 +303,3 @@ func fetchDoctorAppointments(token: String) {
     
     task.resume()
 }
-
-
-

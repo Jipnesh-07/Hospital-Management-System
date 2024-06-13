@@ -11,42 +11,40 @@ import SwiftUI
 struct PatientHomeView: View {
     @StateObject private var patientService = PatientService()
     @State private var showHealthDetails = false
-
+    let bloodGroup: String = UserDefaults.standard.string(forKey: "bloodGroup") ?? ""
+    let height: String = UserDefaults.standard.string(forKey: "height") ?? ""
+    let weight: String = UserDefaults.standard.string(forKey: "weight") ?? ""
+    
+    var bmi: Double {
+        let heightInMeters = (Double(height) ?? 0) / 100
+        let weightInKg = Double(weight) ?? 0
+        if heightInMeters > 0 {
+            return weightInKg / (heightInMeters * heightInMeters)
+        } else {
+            return 0.0
+        }
+    }
+    
+    @State var searchText: String = ""
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    // Header with user information
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Welcome back,")
-                                .font(.headline)
-                                .foregroundColor(.gray)
-                            Text("\(UserDefaults.standard.string(forKey: "firstName") ?? "") \(UserDefaults.standard.string(forKey: "lastName") ?? "")")
-                                .font(.title)
-                                .fontWeight(.bold)
-                        }
+        NavigationView{
+            ScrollView(showsIndicators: false){
+                VStack{
+                    
+                    mainPatientBannerCardView()
+                    HStack{
+                        Text("Appointments")
+                            .font(.title2)
+                            .fontWeight(.semibold)
                         Spacer()
-                        Button(action: {
-                            showHealthDetails.toggle()
-                        }) {
-                            Image(systemName: "person.circle")
-                                .resizable()
-                                .frame(width: 50, height: 50)
+                        NavigationLink(destination: PatientAppointmentVeiw()){
+                            Text("View all")
+                                .fontWeight(.medium)
                                 .foregroundColor(.blue)
-                        }
-                        .sheet(isPresented: $showHealthDetails) {
-                            HealthDetailsView()
                         }
                     }
                     .padding(.horizontal)
-
-                    // Recent Appointments
-                    Text("Recent Appointments")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .padding(.horizontal)
-
+                    
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 16) {
                             ForEach(patientService.appointments.prefix(5)) { appointment in
@@ -55,118 +53,242 @@ struct PatientHomeView: View {
                         }
                         .padding(.horizontal)
                     }
-
-                    // Recent Lab Tests
-                    Text("Recent Lab Tests")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .padding(.horizontal)
-
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 16) {
-                            ForEach(patientService.labAppointments.prefix(5)) { test in
-                                LabTestCardView(test: test)
-                            }
+                    
+                    HStack{
+                        Text("Health Detials")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                        Spacer()
+                        NavigationLink(destination: HealthDetailsView()){
+                            Text("View all")
+                                .fontWeight(.medium)
+                                .foregroundColor(.blue)
                         }
-                        .padding(.horizontal)
-                    }
-
-                    // Navigation links for more options
-                    VStack(spacing: 16) {
-                        NavigationLink(destination: BookAppointmentView(doctorId: "6666a762d01533c8f2a8ddde")) {
-                            DashboardCardView(icon: "calendar", title: "Book Appointment", color: .blue)
-                        }
-                        
-                        NavigationLink(destination: LabTestAppointmentsView()) {
-                            DashboardCardView(icon: "doc.text", title: "View Lab Tests", color: .green)
-                        }
-                        
-                        // Add more navigation links as needed
                     }
                     .padding(.horizontal)
+                    
+                    VStack{
+                        HStack(spacing: 1){
+                            VStack{
+                                HStack{
+                                    Image(systemName: "drop")
+                                        .font(.title)
+                                        .foregroundColor(.red)
+                                        .padding(10)
+                                        .padding(.top,-8)
+                                    Spacer()
+                                    Text("\(bloodGroup)")
+                                        .font(.title3)
+                                        .fontWeight(.medium)
+                                        .padding(10)
+                                        .padding(.top,-8)
+                                    
+                                }
+                                .frame(width: 160)
+                                .padding(.vertical)
+                                
+                                Spacer()
+                                Text("Blood Group")
+                                    .font(.title3)
+                                    .fontWeight(.semibold)
+                                    .padding(8)
+                            }
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.white)
+                                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                            )
+                            .padding(.horizontal)
+                            
+                            VStack{
+                                HStack{
+                                    Image(systemName: "ruler")
+                                        .font(.title)
+                                        .foregroundColor(.purple)
+                                        .padding(10)
+                                        .padding(.top,-8)
+                                        .rotationEffect(Angle(degrees: 90))
+                                    Spacer()
+                                    Text("\(height)")
+                                        .font(.title3)
+                                        .fontWeight(.medium)
+                                        .padding(10)
+                                        .padding(.top,-8)
+                                    
+                                }
+                                .frame(width: 160)
+                                .padding(.vertical)
+                                
+                                Spacer()
+                                Text("Height")
+                                    .font(.title3)
+                                    .fontWeight(.semibold)
+                                    .padding(8)
+                            }
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.white)
+                                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                            )
+                            .padding(.horizontal)
+                            
+                            
+                        }
+                        
+                        HStack(spacing: 1){
+                            VStack{
+                                HStack{
+                                    Image(systemName: "scalemass")
+                                        .font(.title)
+                                        .foregroundColor(.orange)
+                                        .padding(10)
+                                        .padding(.top,-8)
+                                    Spacer()
+                                    Text("\(weight)")
+                                        .font(.title3)
+                                        .fontWeight(.medium)
+                                        .padding(10)
+                                        .padding(.top,-8)
+                                    
+                                }
+                                .frame(width: 160)
+                                .padding(.vertical)
+                                
+                                Spacer()
+                                Text("Weight")
+                                    .font(.title3)
+                                    .fontWeight(.semibold)
+                                    .padding(8)
+                            }
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.white)
+                                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                            )
+                            .padding(.horizontal)
+                            
+                            
+                            
+                            VStack{
+                                HStack{
+                                    Text("BMI")
+                                        .font(.title2)
+                                        .foregroundColor(.blue)
+                                        .padding(10)
+                                        .padding(.top,-8)
+                                    Spacer()
+                                    Text(String(format: "%.1f", bmi))
+                                        .font(.title3)
+                                        .fontWeight(.medium)
+                                        .padding(10)
+                                        .padding(.top,-8)
+                                    
+                                }
+                                .frame(width: 160)
+                                .padding(.vertical)
+                                
+                                Spacer()
+                                Text("BMI")
+                                    .font(.title3)
+                                    .fontWeight(.semibold)
+                                    .padding(8)
+                            }
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.white)
+                                    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                            )
+                            .padding(.horizontal)
+                        }
+                    }
                 }
-            }
-            .navigationTitle("Dashboard")
+            }.navigationTitle("Home")
+                .background(Color(red: 243/255, green: 241/255, blue: 239/255))
         }
+        .searchable(text: $searchText)
         .onAppear {
             // Fetch data when the view appears
             patientService.getAppointments()
             //patientService.getLabAppointments()
         }
     }
+    
+    
 }
 
 struct AppointmentCardView: View {
     let appointment: PatientAppointment
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(appointment.doctor.firstName)
-                .font(.headline)
-                .foregroundColor(.white)
-            Text("\(appointment.date, formatter: dateFormatter)")
-                .font(.subheadline)
-                .foregroundColor(.white)
-            Text(appointment.status)
-                .font(.subheadline)
-                .foregroundColor(.white)
-        }
-        .padding()
-        .background(Color.blue)
-        .cornerRadius(10)
-        .shadow(radius: 5)
-        .frame(width: 200, height: 120)
-    }
-}
-
-struct LabTestCardView: View {
-    let test: TestDetails
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(test.testName)
-                .font(.headline)
-                .foregroundColor(.white)
-            Text("\(test.date, formatter: dateFormatter)")
-                .font(.subheadline)
-                .foregroundColor(.white)
-            Text(test.status)
-                .font(.subheadline)
-                .foregroundColor(.white)
-        }
-        .padding()
-        .background(Color.green)
-        .cornerRadius(10)
-        .shadow(radius: 5)
-        .frame(width: 200, height: 120)
-    }
-}
-
-struct DashboardCardView: View {
-    let icon: String
-    let title: String
-    let color: Color
-    
-    var body: some View {
         HStack {
-            Image(systemName: icon)
-                .resizable()
-                .frame(width: 24, height: 24)
-                .foregroundColor(.white)
-                .padding()
-                .background(color)
-                .cornerRadius(8)
-            Text(title)
-                .font(.headline)
-                .foregroundColor(.primary)
+            VStack(alignment: .leading, spacing: 10) {
+                HStack{
+          
+                    
+                    VStack{
+                        Image("user2") // Replace with your image
+                            .resizable()
+                            .frame(width: 90, height: 90)
+                        //                                .padding(.top)
+                            .clipShape(RoundedRectangle(cornerRadius: 9))
+                    }
+                    .padding(.top)
+                    
+                    Spacer()
+                    Spacer()
+                    Spacer().frame(width: 40)
+                    VStack(alignment: .trailing){
+                        Text("\(appointment.doctor.firstName) \(appointment.doctor.lastName)")
+                            .font(.title3)
+                            .fontWeight(.medium)
+                        
+                        Text("\(appointment.doctor.specialization)")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        
+                    }
+                    
+                    
+                }
+                .padding(.top,-9)
+                
+                Spacer().frame(height: 1)
+                HStack{
+                    
+                    HStack{
+                        
+                        
+                        Text("\(appointment.timeSlot)")
+                            .font(.system(size: 14))
+                            .fontWeight(.bold)
+                            .padding(9)
+                            .background(RoundedRectangle(cornerRadius: 12).stroke(Color.gray, lineWidth: 1))
+                        
+                    }
+                    Spacer()
+                    
+//                    Text("↓")
+//                        .font(.system(size: 20))
+//                        .frame(width: 24)
+//                        .padding(12)
+//                        .rotationEffect(Angle(degrees: 270))
+//                        .foregroundColor(.white)
+//                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 1).fill(Color(red: 97/255, green: 120/255, blue: 187/255)))
+                    
+                }
+            }
+            
             Spacer()
+            
         }
         .padding()
-        .background(Color(UIColor.systemBackground))
-        .cornerRadius(10)
-        .shadow(radius: 5)
+        .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
+        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
+        .padding()
     }
 }
+
+
 
 #Preview {
     PatientHomeView()

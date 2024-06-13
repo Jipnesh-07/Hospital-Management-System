@@ -37,7 +37,7 @@ struct PatientAppointmentVeiw: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationView{
             
             
             VStack {
@@ -65,16 +65,20 @@ struct PatientAppointmentVeiw: View {
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.horizontal, 16)
                 
+                
+                
                 List(filteredAppointments) { appointment in
-                    PatientRow(appointment: appointment)
-                        .listRowInsets(EdgeInsets())
+                    NavigationLink(destination: CompletePatientAppointmentView(appointment: appointment)) {
+                        PatientRow(appointment: appointment)
+                            .listRowInsets(EdgeInsets())
+                    }
                 }
                 .listStyle(PlainListStyle())
                 
-                
+                .navigationTitle("Appointments")
             }
             
-            .navigationTitle("Appointments")
+//            .navigationTitle("Appointments")
             .onAppear {
                 patientService.getAppointments()
             }
