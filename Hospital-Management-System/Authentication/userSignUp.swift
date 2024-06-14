@@ -1,10 +1,3 @@
-//
-//  userSignUp.swift
-//  Hospital-Management-System
-//
-//  Created by MACBOOK on 05/06/24.
-
-
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -45,119 +38,118 @@ struct UserSignUp: View {
     let specializations = ["Cardiology", "Dermatology", "Endocrinology", "Gastroenterology", "Hematology", "Neurology", "Oncology", "Pediatrics", "Psychiatry", "Rheumatology"]
     
     var body: some View {
-//        NavigationView {
-            VStack {
-                List {
-                    Section(header: Text("Account Type")) {
-                        Picker("", selection: $accountType) {
-                            Text("Doctor").tag("Doctor")
-                            Text("Patient").tag("Patient")
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
+        VStack {
+            List {
+                Section(header: Text("Account Type")) {
+                    Picker("", selection: $accountType) {
+                        Text("Doctor").tag("Doctor")
+                        Text("Patient").tag("Patient")
                     }
+                    .pickerStyle(SegmentedPickerStyle())
+                }
+                
+                Section(header: Text("Personal Information")) {
+                    TextField("First Name", text: $firstName)
+                    TextField("Last Name", text: $lastName)
+                    TextField("Age", text: $age)
+                        .keyboardType(.numberPad)
+                    Picker("Gender", selection: $gender) {
+                        ForEach(genders, id: \.self) { gender in
+                            Text(gender).tag(gender)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    TextField("Address", text: $address)
+                    TextField("Phone Number", text: $phoneNumber)
+                        .keyboardType(.phonePad)
+                    TextField("Email", text: $email)
+                        .keyboardType(.emailAddress)
+                        .autocapitalization(.none)
+                    SecureField("Password", text: $password, onCommit: {
+                        validatePassword()
+                    })
+                    SecureField("Confirm Password", text: $confirmPassword, onCommit: {
+                        validatePassword()
+                    })
                     
-                    Section(header: Text("Personal Information")) {
-                        TextField("First Name", text: $firstName)
-                        TextField("Last Name", text: $lastName)
-                        TextField("Age", text: $age)
-                            .keyboardType(.numberPad)
-                        Picker("Gender", selection: $gender) {
-                            ForEach(genders, id: \.self) { gender in
-                                Text(gender).tag(gender)
+                    if showError {
+                        Text(errorMessage)
+                            .foregroundColor(.red)
+                    }
+                }
+                
+                if accountType == "Patient" {
+                    Section(header: Text("Patient Information")) {
+                        Picker("Blood Group", selection: $bloodGroup) {
+                            ForEach(bloodGroups, id: \.self) { bloodGroup in
+                                Text(bloodGroup)
                             }
                         }
                         .pickerStyle(MenuPickerStyle())
-                        TextField("Address", text: $address)
-                        TextField("Phone Number", text: $phoneNumber)
-                            .keyboardType(.phonePad)
-                        TextField("Email", text: $email)
-                            .keyboardType(.emailAddress)
-                            .autocapitalization(.none)
-                        SecureField("Password", text: $password, onCommit: {
-                            validatePassword()
-                        })
-                        SecureField("Confirm Password", text: $confirmPassword, onCommit: {
-                            validatePassword()
-                        })
+                        TextField("Height", text: $height)
+                        TextField("Weight", text: $weight)
+                    }
+                }
+                
+                if accountType == "Doctor" {
+                    Section(header: Text("Doctor Information")) {
+                        TextField("Fees", text: $fees)
+                            .keyboardType(.decimalPad)
+                        TextField("Experience", text: $experience)
+                        TextField("LicenseNumber", text: $licenseNumber)
+                        TextField("Qualification", text: $qualification)
                         
-//                        if signUpAttempted && !isPasswordValid {
-//                            Text("Passwords must match and have a minimum length of 6 characters.")
-//                                .foregroundColor(.red)
-//                        }
-                        
-                        if showError {
-                            Text(errorMessage)
-                                .foregroundColor(.red)
-                        }
-                    }
-                    
-                    if accountType == "Patient" {
-                        Section(header: Text("Patient Information")) {
-                            Picker("Blood Group", selection: $bloodGroup) {
-                                ForEach(bloodGroups, id: \.self) { bloodGroup in
-                                    Text(bloodGroup)
-                                }
+                        TextField("About", text: $about)
+                        Picker("Specialization", selection: $specialization) {
+                            ForEach(specializations, id: \.self) { specialization in
+                                Text(specialization)
                             }
-                            .pickerStyle(MenuPickerStyle())
-                            TextField("Height", text: $height)
-                            TextField("Weight", text: $weight)
                         }
+                        .pickerStyle(MenuPickerStyle())
                     }
-                    
-                    if accountType == "Doctor" {
-                        Section(header: Text("Doctor Information")) {
-                            TextField("Fees", text: $fees)
-                                .keyboardType(.decimalPad)
-                            TextField("Experience", text: $experience)
-                            TextField("LicenseNumber", text: $licenseNumber)
-                            TextField("Qualification", text: $qualification)
-                            
-                            TextField("About", text: $about)
-                            Picker("Specialization", selection: $specialization) {
-                                ForEach(specializations, id: \.self) { specialization in
-                                    Text(specialization)
-                                }
-                            }
-                            .pickerStyle(MenuPickerStyle())
-                        }
-                    }
-                    
                 }
-                
-                Button(action: {
-                    signUpAttempted = true
-                    signUp()
-                }) {
-                    Text("Sign Up")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(.accent)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                }
-                .padding()
-                .alert(isPresented: $showSuccessAlert) {
-                    Alert(
-                        title: Text("Success"),
-                        message: Text("User signed up successfully!"),
-                        dismissButton: .default(Text("OK")) {
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    )
-                }
-                
-                NavigationLink(destination: Text("Sign In")) {
-                    Text("Already have an account? Sign In")
-                        .fontWeight(.bold)
-                        .foregroundColor(.blue)
-                }
-                .padding(.vertical)
-                
-                Spacer()
             }
-            .navigationBarTitle("Sign Up", displayMode: .inline)
-//        }
+            
+            Button(action: {
+                signUpAttempted = true
+                signUp()
+            }) {
+                Text("Sign Up")
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.accentColor)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            }
+            .padding()
+            .alert(isPresented: $showSuccessAlert) {
+                Alert(
+                    title: Text("Success"),
+                    message: Text("User signed up successfully!"),
+                    dismissButton: .default(Text("OK")) {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                )
+            }
+            
+            NavigationLink(destination: Text("Sign In")) {
+                Text("Already have an account? Sign In")
+                    .fontWeight(.bold)
+                    .foregroundColor(.blue)
+            }
+            .padding(.vertical)
+            
+            Spacer()
+        }
+        .navigationBarTitle("Sign Up", displayMode: .inline)
+        .alert(isPresented: $showError) {
+            Alert(
+                title: Text("Error"),
+                message: Text(errorMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
     
     private func signUp() {
@@ -172,6 +164,7 @@ struct UserSignUp: View {
             // Handle error: passwords do not match or have insufficient length
             isPasswordValid = false
             errorMessage = "Passwords must match and have a minimum length of 6 characters."
+            showError = true
             return
         }
         
@@ -274,7 +267,7 @@ struct UserSignUp: View {
             return false
         }
         
-        if let age = Int(age), age > 99 {
+        if let age = Int(age), age > 99 || age < 0 {
             errorMessage = "Invalid age"
             return false
         }
@@ -300,11 +293,3 @@ class DataModel: ObservableObject {
         // Implementation for data model's sign-up method
     }
 }
-
-
-#Preview{
-    UserSignUp()
-}
-
-
-

@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-//enum UserType: String {
-//    case none
-//    case patient
-//    case doctor
-//    case admin
-//    case lab
-//}
 
 
 struct userSignIn: View {
@@ -23,15 +16,16 @@ struct userSignIn: View {
     @State private var alertMessage = ""
     @State private var userType: UserType = .none
     @State private var showFullScreenCover = false
-    
+    @State private var showError = false
+    @State private var errorMessage = ""
     private let authservice = AuthService()
     
     private var emailBorderColor: Color {
-        return email.isEmpty ? .red : .black
+        return email.isEmpty ? .accentColor : .black
     }
     
     private var passwordBorderColor: Color {
-        return password.isEmpty ? .red : .black
+        return password.isEmpty ? .accentColor : .black
     }
     
     
@@ -101,6 +95,10 @@ struct userSignIn: View {
                         .padding(.horizontal, 30)
                         .padding(.top, 20)
                 }
+                if showError {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                }
                 
                 Spacer()
                 
@@ -130,21 +128,7 @@ struct userSignIn: View {
         }
     }
         
-//        @ViewBuilder
-//        private func destinationView() -> some View {
-//            switch userType {
-//            case .none:
-//                EmptyView()
-//            case .patient:
-//                MainPatientView().onDisappear { resetUserType() }
-//            case .doctor:
-//                MainDoctorView().onDisappear { resetUserType() }
-//            case .admin:
-//                MainAdminView().onDisappear { resetUserType() }
-//            case .lab:
-//                LaboratoryContentView().onDisappear { resetUserType() }
-//            }
-//        }
+
         
     
     private func resetUserType() {
@@ -194,6 +178,8 @@ struct userSignIn: View {
                     updateUserType(response.accountType)
                 case .failure(let error):
                     print("Error signing in: \(error)")
+                    self.showError = true
+                    self.errorMessage = "Incorrect Password"
                 }
             }
         }
@@ -222,5 +208,3 @@ struct userSignIn: View {
 #Preview {
     userSignIn()
 }
-
-

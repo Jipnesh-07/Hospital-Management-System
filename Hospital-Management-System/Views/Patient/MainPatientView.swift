@@ -24,7 +24,7 @@ struct MainPatientView: View {
             
             PatientAppointmentVeiw()
                 .tabItem {
-                    Label("Appointments", systemImage: "testtube.2")
+                    Label("Appointments", systemImage: "person.badge.clock")
                 }
             
 //            LaboratoryContentView()

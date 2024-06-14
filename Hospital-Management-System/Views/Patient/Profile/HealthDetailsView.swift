@@ -26,7 +26,7 @@ struct HealthDetailsView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Image("user1")
+                    Image("user2")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 90, height: 87)

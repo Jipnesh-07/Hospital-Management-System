@@ -37,6 +37,7 @@
 		FA537F6B2C0FAB20005FC3F9 /* DoctorProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA537F6A2C0FAB20005FC3F9 /* DoctorProfileView.swift */; };
 		FA537F6D2C0FAB41005FC3F9 /* DoctorHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA537F6C2C0FAB41005FC3F9 /* DoctorHomeView.swift */; };
 		FA9321032C1A319B0026F453 /* mainPatientBannerCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9321022C1A319B0026F453 /* mainPatientBannerCardView.swift */; };
+		FAAD95AA2C1BFE58004F3295 /* PatientInformationAdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD95A92C1BFE58004F3295 /* PatientInformationAdminView.swift */; };
 		FAB1FF582C10185800098E63 /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1FF572C10185800098E63 /* Appointment.swift */; };
 		FAB1FF5B2C103A7300098E63 /* userSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1FF5A2C103A7300098E63 /* userSignUp.swift */; };
 		FAB1FF5D2C103A7F00098E63 /* userSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB1FF5C2C103A7F00098E63 /* userSignIn.swift */; };
@@ -97,6 +98,7 @@
 		FA537F6A2C0FAB20005FC3F9 /* DoctorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorProfileView.swift; sourceTree = "<group>"; };
 		FA537F6C2C0FAB41005FC3F9 /* DoctorHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeView.swift; sourceTree = "<group>"; };
 		FA9321022C1A319B0026F453 /* mainPatientBannerCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainPatientBannerCardView.swift; sourceTree = "<group>"; };
+		FAAD95A92C1BFE58004F3295 /* PatientInformationAdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientInformationAdminView.swift; sourceTree = "<group>"; };
 		FAB1FF572C10185800098E63 /* Appointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appointment.swift; sourceTree = "<group>"; };
 		FAB1FF5A2C103A7300098E63 /* userSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userSignUp.swift; sourceTree = "<group>"; };
 		FAB1FF5C2C103A7F00098E63 /* userSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userSignIn.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				FAB942EE2C1B7E7800320ACF /* EmergencyAdminView.swift */,
 				FAB942F02C1B7EBA00320ACF /* EmergencyAdminViewModel.swift */,
 				FAB942F72C1B96DE00320ACF /* personalInformation.swift */,
+				FAAD95A92C1BFE58004F3295 /* PatientInformationAdminView.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				FA537F262C0F8197005FC3F9 /* ContentView.swift in Sources */,
 				FA537F3B2C0F82CF005FC3F9 /* Doctor.swift in Sources */,
 				FAB1FF5D2C103A7F00098E63 /* userSignIn.swift in Sources */,
+				FAAD95AA2C1BFE58004F3295 /* PatientInformationAdminView.swift in Sources */,
 				FA537F532C0FA079005FC3F9 /* MainDoctorView.swift in Sources */,
 				FA537F3D2C0F82DE005FC3F9 /* Admin.swift in Sources */,
 				FAB1FF612C106F4500098E63 /* patientController.swift in Sources */,

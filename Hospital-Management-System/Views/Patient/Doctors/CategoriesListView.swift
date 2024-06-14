@@ -12,7 +12,8 @@ struct DoctorCategoryListPatientView: View {
         "Gastroenterology": ("stomach", "Digestive system disorders"),
         "Neurology": ("brain", "Brain and neurons"),
         "Gynecology": ("uterus", "Female reproductive system"),
-        "Ophthalmology": ("read", "Eyes")
+        "Ophthalmology": ("read", "Eyes"),
+        "Eye Specialist": ("read", "Eyes")
     ]
     
     var body: some View {

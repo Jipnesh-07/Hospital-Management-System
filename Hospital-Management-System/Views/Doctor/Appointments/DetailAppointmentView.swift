@@ -12,6 +12,8 @@ struct PrescriptionForm: View {
     @State private var prescriptionText = ""
     @State private var testText = ""
     var appointment: DoctorAppointment
+    @State private var showSuccessAlert = false
+    @State private var alertMessage = ""
     @ObservedObject var doctorService = DoctorService() // Use DoctorService to handle data submission
     
     var body: some View {
@@ -114,6 +116,8 @@ struct PrescriptionForm: View {
                         doctorService.addPrescription(appointmentId: appointment.id, prescription: prescriptionText) { success in
                             if success {
                                // self.presentationMode.wrappedValue.dismiss()
+                                alertMessage = "Your appointment has been booked"
+                                showSuccessAlert = true
                             } else {
                                 print("Failed to add prescription")
                             }
@@ -132,7 +136,7 @@ struct PrescriptionForm: View {
                             .frame(maxWidth: .infinity)
                             .padding()
                             .foregroundColor(.white)
-                            .background(Color.blue)
+                            .background(Color.accentColor)
                             .cornerRadius(10)
                             .padding(.horizontal, 20)
                     }
@@ -142,6 +146,17 @@ struct PrescriptionForm: View {
             }
             .background(Color(red: 241/255, green: 241/255, blue: 246/255))
         }
+        
+        .alert(isPresented: $showSuccessAlert) {
+            Alert(
+                title: Text("Success"),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("OK")) {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            )
+    
+    }
     }
     
     private var dateFormatter: DateFormatter {
@@ -150,5 +165,3 @@ struct PrescriptionForm: View {
         return formatter
     }
 }
-
-

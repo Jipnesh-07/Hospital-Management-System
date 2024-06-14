@@ -13,7 +13,7 @@ struct EmergencyRequestsView: View {
     @StateObject private var viewModel = EmergencyRequestsViewModel()
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             VStack {
                 if viewModel.isLoading {
                     ProgressView("Loading...")
@@ -34,7 +34,7 @@ struct EmergencyRequestsView: View {
             .onAppear {
                 viewModel.fetchEmergencyRequests()
             }
-        }
+//        }
     }
 }
 

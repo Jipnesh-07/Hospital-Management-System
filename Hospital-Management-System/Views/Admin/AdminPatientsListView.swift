@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct AdminPatientsListView: View {
@@ -60,14 +59,12 @@ struct AdminPatientsListView: View {
                         Spacer()
                         
                         // Navigation button or action button
-                        Button(action: {
-                            // Handle navigation or action
-                        }) {
-                            Image(systemName: "info.circle")
-                                .resizable()
-                                .frame(width: 24, height: 24)
-                                .foregroundColor(.blue)
-                        }
+                        NavigationLink(destination: PatientInformationAdminView(patient: patient)) {
+//                                                    Image(systemName: "info.circle")
+//                                                        .resizable()
+//                                                        .frame(width: 24, height: 24)
+//                                                        .foregroundColor(.blue)
+                                                }
                     }
                     .padding()
                     .background(Color(.systemGray6))
