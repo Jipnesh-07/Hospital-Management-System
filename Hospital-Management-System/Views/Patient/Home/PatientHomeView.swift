@@ -212,12 +212,12 @@ struct PatientHomeView: View {
             }.navigationTitle("Home")
                 .navigationBarItems(trailing:
                                         NavigationLink(destination: EmergencyBookingView()) {
-                                            Image(systemName: "light.beacon.max")
-                                                .font(.title3)
-                                                .foregroundColor(.red)
-                                                
-                                        }
-                                    )
+                    Image(systemName: "light.beacon.max")
+                        .font(.title3)
+                        .foregroundColor(.red)
+                    
+                }
+                )
                 .background(Color(red: 243/255, green: 241/255, blue: 239/255))
         }
         .searchable(text: $searchText)
@@ -238,7 +238,7 @@ struct AppointmentCardView: View {
         HStack {
             VStack(alignment: .leading, spacing: 10) {
                 HStack{
-          
+                    
                     
                     VStack{
                         Image("user2") // Replace with your image
@@ -280,7 +280,7 @@ struct AppointmentCardView: View {
                             .fontWeight(.bold)
                             .foregroundColor(Color(.darkGray))
                             .padding(9)
-//                            .background(RoundedRectangle(cornerRadius: 12).stroke(Color.gray, lineWidth: 1))
+                        //                            .background(RoundedRectangle(cornerRadius: 12).stroke(Color.gray, lineWidth: 1))
                         Spacer()
                         Text(dateFormatter2.string(from: appointment.date))
                             .font(.system(size: 15))
@@ -288,16 +288,16 @@ struct AppointmentCardView: View {
                             .foregroundColor(Color(.darkGray))
                             .padding(9)
                     }
-                
+                    
                     Spacer()
                     
-//                    Text("↓")
-//                        .font(.system(size: 20))
-//                        .frame(width: 24)
-//                        .padding(12)
-//                        .rotationEffect(Angle(degrees: 270))
-//                        .foregroundColor(.white)
-//                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 1).fill(Color(red: 97/255, green: 120/255, blue: 187/255)))
+                    //                    Text("↓")
+                    //                        .font(.system(size: 20))
+                    //                        .frame(width: 24)
+                    //                        .padding(12)
+                    //                        .rotationEffect(Angle(degrees: 270))
+                    //                        .foregroundColor(.white)
+                    //                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 1).fill(Color(red: 97/255, green: 120/255, blue: 187/255)))
                     
                 }
             }

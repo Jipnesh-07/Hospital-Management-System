@@ -2,7 +2,7 @@ import SwiftUI
 
 struct PatientInformationAdminView: View {
     var patient: PatientForAdmin
-
+    
     var body: some View {
         VStack {
             Text("Personal information")

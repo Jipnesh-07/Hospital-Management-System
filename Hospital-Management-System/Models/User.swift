@@ -1,7 +1,8 @@
-
 import Foundation
 import SwiftUI
-// MARK: USER
+
+// MARK: - User Model
+// Model representing a User in the system. Conforms to Codable for JSON parsing and Identifiable for unique identification in SwiftUI.
 struct User: Codable, Identifiable {
     let _id: String
     let accountType: String
@@ -24,6 +25,7 @@ struct User: Codable, Identifiable {
     let createdAt: String
     let updatedAt: String
     
+    // Enumeration to map JSON keys to struct properties
     enum CodingKeys: String, CodingKey {
         case _id
         case accountType
@@ -47,6 +49,7 @@ struct User: Codable, Identifiable {
         case updatedAt
     }
     
+    // Custom initializer to decode JSON into User struct
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self._id = try container.decode(String.self, forKey: ._id)
@@ -71,41 +74,44 @@ struct User: Codable, Identifiable {
         self.experience = try container.decodeIfPresent(String.self, forKey: .experience)
     }
     
+    // Computed property to conform to Identifiable protocol
     var id: String {
         return _id
     }
 }
 
+// MARK: - UserRegistrationResponse Model
+// Model representing the response received upon user registration
 struct UserRegistrationResponse: Decodable {
-//    let message: String
     let user: User
     let token: String
-    //    let type: String
     
+    // Enumeration to map JSON keys to struct properties
     enum CodingKeys: CodingKey {
-        case message
         case user
         case token
     }
     
+    // Custom initializer to decode JSON into UserRegistrationResponse struct
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-//        self.message = try container.decode(String.self, forKey: .message)
         self.user = try container.decode(User.self, forKey: .user)
         self.token = try container.decode(String.self, forKey: .token)
     }
 }
 
+// MARK: - SigninResponse Model
+// Model representing the response received upon user sign-in
 struct SigninResponse: Codable {
     var user: User
     var token: String
     let accountType: String
 }
 
+// MARK: - DoctorSigninResponse Model
+// Model representing the response received upon doctor sign-in
 struct DoctorSigninResponse: Codable {
     var user: Doctor
     var token: String
     let accountType: String
 }
-
-

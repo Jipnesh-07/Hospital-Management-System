@@ -80,30 +80,30 @@ struct DoctorInformationPatientView: View {
                     .cornerRadius(10)
                     .padding(.horizontal)
                 
-
+                
                 if let schedules = viewModel.doctor.schedule {
-                                    ForEach(schedules, id: \.date) { schedule in
-                                        VStack(alignment: .leading) {
-                                            Text("Slot Timmings")
-                                                .font(.headline)
-                                                .padding(.horizontal)
-                                            
-                                            HStack {
-                                                ForEach(schedule.slots, id: \.timeSlot) { slot in
-                                                    VStack {
-                                                        Text(slot.timeSlot)
-                                                        Text("\(slot.startTime)")
-                                                        Text("\(slot.endTime)")
-                                                    }
-                                                }
-                                            }
-                                            .padding()
-                                            .background(Color(.systemGray6))
-                                            .cornerRadius(10)
-                                            .padding(.horizontal)
-                                        }
+                    ForEach(schedules, id: \.date) { schedule in
+                        VStack(alignment: .leading) {
+                            Text("Slot Timmings")
+                                .font(.headline)
+                                .padding(.horizontal)
+                            
+                            HStack {
+                                ForEach(schedule.slots, id: \.timeSlot) { slot in
+                                    VStack {
+                                        Text(slot.timeSlot)
+                                        Text("\(slot.startTime)")
+                                        Text("\(slot.endTime)")
                                     }
                                 }
+                            }
+                            .padding()
+                            .background(Color(.systemGray6))
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                        }
+                    }
+                }
                 
                 HStack(spacing: 20) {
                     Button(action: {
@@ -125,7 +125,7 @@ struct DoctorInformationPatientView: View {
             }
             .padding()
             .navigationTitle("Profile")
-//            .background(Color(red: 243/255, green: 241/255, blue: 239/255))
+            //            .background(Color(red: 243/255, green: 241/255, blue: 239/255))
             //            .navigationBarItems(leading: Button(action: {
             //                presentationMode.wrappedValue.dismiss()
             //            }) {

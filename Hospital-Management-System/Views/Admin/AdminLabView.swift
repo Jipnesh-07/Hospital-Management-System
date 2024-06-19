@@ -72,19 +72,19 @@ struct AdminLabView: View {
     ]
     
     var body: some View {
-       
-            List {
-                ForEach(labTests.keys.sorted(), id: \.self) { category in
-                    NavigationLink(destination: TestDetailView2(tests: self.labTests[category] ?? [])) {
-                        Text(category)
-                    }
-                }
-                NavigationLink(destination: AddLabTest()) {
-                    Text("Add New Lab Test")
+        
+        List {
+            ForEach(labTests.keys.sorted(), id: \.self) { category in
+                NavigationLink(destination: TestDetailView2(tests: self.labTests[category] ?? [])) {
+                    Text(category)
                 }
             }
-            .navigationTitle("Lab Tests")
+            NavigationLink(destination: AddLabTest()) {
+                Text("Add New Lab Test")
+            }
         }
+        .navigationTitle("Lab Tests")
+    }
     
 }
 

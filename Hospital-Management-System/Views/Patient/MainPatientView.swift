@@ -16,7 +16,7 @@ struct MainPatientView: View {
                     Label("Home", systemImage: "house")
                     
                 }
-           DoctorCategoryListPatientView()
+            DoctorCategoryListPatientView()
                 .tabItem {
                     Label("Doctors", systemImage: "stethoscope")
                 }
@@ -27,7 +27,7 @@ struct MainPatientView: View {
                     Label("Appointments", systemImage: "person.badge.clock")
                 }
             
-//            LaboratoryContentView()
+            
             LabTestAppointmentsView()
                 .tabItem {
                     Label("LabTests", systemImage: "testtube.2")
@@ -35,7 +35,7 @@ struct MainPatientView: View {
             
             
             ProfileContentView()
-//            HealthDetailsView()
+            
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }

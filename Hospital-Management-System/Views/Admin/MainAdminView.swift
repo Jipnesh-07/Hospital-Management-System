@@ -10,17 +10,17 @@ import SwiftUI
 struct MainAdminView: View {
     var body: some View {
         TabView {
-           AdminHomeView()
-               .tabItem {
+            AdminHomeView()
+                .tabItem {
                     Label("Home", systemImage: "house")
                     
                 }
             
             DoctorApprovalList()
-                 .tabItem {
-                     Label("ApprovalList", systemImage: "person.fill.checkmark")
-                 }
-             
+                .tabItem {
+                    Label("ApprovalList", systemImage: "person.fill.checkmark")
+                }
+            
             
             DoctorCategoryListView()
                 .tabItem {
@@ -28,9 +28,9 @@ struct MainAdminView: View {
                     
                 }
             
-          
             
-           AdminProfile()
+            
+            AdminProfile()
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }

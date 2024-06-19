@@ -8,11 +8,13 @@
 import Foundation
 import SwiftUI
 
-
+// MARK: - EmergencyResponse Model
+// Model representing the response for an emergency request
 struct EmergencyResponse: Codable {
     let success: Bool
     let emergencyRequest: EmergencyRequest
     
+    // Nested struct for the emergency request details
     struct EmergencyRequest: Codable {
         let patient: String
         let status: String
@@ -25,9 +27,9 @@ struct EmergencyResponse: Codable {
     }
 }
 
-
-
-struct Patient: Codable{
+// MARK: - Patient Model
+// Model representing a patient
+struct Patient: Codable {
     let user: User
     let bloodGroup: String
     let weight: Int
@@ -35,6 +37,7 @@ struct Patient: Codable{
     let symptom: String
     let address: String
     
+    // Custom decoder to decode Patient data
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.user = try container.decode(User.self, forKey: .user)
@@ -44,17 +47,17 @@ struct Patient: Codable{
         self.symptom = try container.decode(String.self, forKey: .symptom)
         self.address = try container.decode(String.self, forKey: .address)
     }
-    
-    
-    
 }
 
-struct Category: Identifiable{
+// MARK: - Category Model
+// Model representing a category for doctors
+struct Category: Identifiable {
     let id: UUID
     let name: String
     let imageName: String
 }
 
+// Predefined categories for doctors
 let categories = [
     Category(id: UUID(), name: "Cardiologist", imageName: "heart.fill"),
     Category(id: UUID(), name: "Dermatologist", imageName: "face.smiling.fill"),
@@ -71,7 +74,8 @@ let categories = [
     Category(id: UUID(), name: "Pulmonologist", imageName: "lungs.fill")
 ]
 
-
+// MARK: - PatientForAdmin Model
+// Model representing a patient for admin view
 struct PatientForAdmin: Codable, Identifiable {
     let _id: String
     let accountType: String
@@ -94,6 +98,7 @@ struct PatientForAdmin: Codable, Identifiable {
     let createdAt: String
     let updatedAt: String
     
+    // Coding keys to map the JSON keys to struct properties
     enum CodingKeys: String, CodingKey {
         case _id
         case accountType
@@ -117,6 +122,7 @@ struct PatientForAdmin: Codable, Identifiable {
         case updatedAt
     }
     
+    // Custom decoder to decode PatientForAdmin data
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self._id = try container.decode(String.self, forKey: ._id)
@@ -141,69 +147,48 @@ struct PatientForAdmin: Codable, Identifiable {
         self.experience = try container.decodeIfPresent(String.self, forKey: .experience)
     }
     
+    // Computed property to return the ID of the patient
     var id: String {
         return _id
     }
 }
 
-
-
+// MARK: - DoctorFormView
+// SwiftUI view for adding a doctor
 struct DoctorFormView: View {
     @State private var name: String = ""
     @State private var selectedCategoryID: UUID? = nil
     
     var body: some View {
         Form {
+            // TextField for entering doctor's name
             TextField("Name", text: $name)
             
+            // Picker for selecting doctor's category
             Picker("Category", selection: $selectedCategoryID) {
                 ForEach(categories) { category in
                     Text(category.name).tag(category.id as UUID?)
                 }
             }
             
+            // Button to save doctor
             Button(action: {
-                
+                // Action to save doctor
             }) {
                 Text("Save Doctor")
             }
         }
     }
-    //
-    //    func saveDoctor() {
-    //        // Handle saving the doctor data
-    //        guard let categoryID = selectedCategoryID else { return }
-    //        let newDoctor = Doctor(id: UUID(), name: name, categoryID: categoryID)
-    //        // Save the doctor (e.g., add to an array, save to a database, etc.)
-    //        // For this example, let's just print the new doctor
-    //        print(newDoctor)
-    //    }
-    //}
-    //struct ContentView: View {
-    //    var body: some View {
-    //        NavigationView {
-    //            List {
-    //                ForEach(categories) { category in
-    //                    Section(header: Text(category.name)) {
-    //                        ForEach(doctors.filter { $0.categoryID == category.id }) { doctor in
-    //                            Text(doctor.name)
-    //                        }
-    //                    }
-    //                }
-    //            }
-    //            .navigationTitle("Doctors")
-    //        }
-    //    }
-    //}
 }
 
 // MARK: - PatientResponse Model
-
+// Model representing the response for fetching patients
 struct PatientResponse: Codable {
     let success: Bool
     let data: [User]
 }
 
+// Model representing the response for fetching patients for admin view
 struct PatientForAdminResponse: Codable {
     let success: Bool
     let data: [PatientForAdmin]

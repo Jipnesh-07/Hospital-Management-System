@@ -7,23 +7,27 @@
 
 import Foundation
 
-class DoctorService: ObservableObject{
+// DoctorService class manages doctor-related operations and API calls
+class DoctorService: ObservableObject {
+    // Authentication token retrieved from UserDefaults
     let token: String = UserDefaults.standard.string(forKey: "authToken") ?? ""
     
+    // Base URL for doctor-related API endpoints
     let baseURL = "https://hms-backend-1-1aof.onrender.com/doctor"
+    
+    // Published properties to trigger UI updates
     @Published var showSuccessAlert = false
     @Published var doctor: Doctor?
     @Published var appointments: [DoctorAppointment] = []
     
-    
-    
+    // Function to fetch doctor appointments
     func getAppointments() {
         let urlString = "\(baseURL)/appointments"
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
         }
-        print("printing saveddddd token: \(token)")
+        print("Printing saved token: \(token)")
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -56,8 +60,7 @@ class DoctorService: ObservableObject{
                     }
                 }
             } catch {
-                // Print detailed error information
-                print("data mapping error")
+                print("Data mapping error")
                 print("Error decoding appointments: \(error.localizedDescription)")
                 if let dataString = String(data: data, encoding: .utf8) {
                     print("Raw JSON response: \(dataString)")
@@ -68,9 +71,9 @@ class DoctorService: ObservableObject{
         task.resume()
     }
     
-    
+    // Function to add a schedule for a doctor
     func addSchedule(schedule: Schedule, completion: @escaping (Bool) -> Void) {
-        print("entered add schedule")
+        print("Entered add schedule")
         let url = URL(string: "\(baseURL)/addSchedule")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -114,6 +117,7 @@ class DoctorService: ObservableObject{
         }.resume()
     }
     
+    // Function to fetch doctor profile data
     func fetchDoctorData(completion: @escaping (Bool) -> Void) {
         let urlString = "\(baseURL)/getprofile"
         guard let url = URL(string: urlString) else {
@@ -160,7 +164,7 @@ class DoctorService: ObservableObject{
         task.resume()
     }
     
-    // Function to add a prescription
+    // Function to add a prescription for an appointment
     func addPrescription(appointmentId: String, prescription: String, completion: @escaping (Bool) -> Void) {
         guard let url = URL(string: "\(baseURL)/prescription/\(appointmentId)") else {
             print("Invalid URL")
@@ -175,7 +179,6 @@ class DoctorService: ObservableObject{
         
         let body: [String: Any] = [
             "prescription": prescription
-            
         ]
         
         do {
@@ -211,7 +214,7 @@ class DoctorService: ObservableObject{
         task.resume()
     }
     
-    // Function to add a prescription
+    // Function to add a test for an appointment
     func addTest(appointmentId: String, test: String, completion: @escaping (Bool) -> Void) {
         guard let url = URL(string: "\(baseURL)/tests/\(appointmentId)") else {
             print("Invalid URL")
@@ -225,9 +228,7 @@ class DoctorService: ObservableObject{
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let body: [String: Any] = [
-            "tests": [ "testName": test]
-            
-            
+            "tests": ["testName": test]
         ]
         
         do {
@@ -240,7 +241,7 @@ class DoctorService: ObservableObject{
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                print("Error adding prescription: \(error.localizedDescription)")
+                print("Error adding test: \(error.localizedDescription)")
                 completion(false)
                 return
             }
@@ -252,7 +253,7 @@ class DoctorService: ObservableObject{
             }
             
             if httpResponse.statusCode == 200 {
-                print("Prescription added successfully")
+                print("Test added successfully")
                 completion(true)
             } else {
                 print("Failed with status code: \(httpResponse.statusCode)")
@@ -264,14 +265,14 @@ class DoctorService: ObservableObject{
     }
 }
 
-
-
+// DoctorAPI class manages admin-related doctor operations and API calls
 class DoctorAPI {
     static let shared = DoctorAPI()
     
     let token: String = UserDefaults.standard.string(forKey: "authToken") ?? ""
     private let baseURL = "https://hms-backend-1-1aof.onrender.com/admin"
     
+    // Function to get the list of doctors
     func getDoctors(completion: @escaping (Result<DoctorResponse, Error>) -> Void) {
         let urlString = "\(baseURL)/doctors"
         guard let url = URL(string: urlString) else {
@@ -326,6 +327,7 @@ class DoctorAPI {
         task.resume()
     }
     
+    // Function to approve a doctor
     func approveDoctor(doctorID: String, completion: @escaping (Result<Doctor, Error>) -> Void) {
         let urlString = "\(baseURL)/doctors/\(doctorID)/approve"
         guard let url = URL(string: urlString) else {
@@ -375,6 +377,7 @@ class DoctorAPI {
         task.resume()
     }
     
+    // Function to reject a doctor
     func rejectDoctor(doctorID: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let urlString = "\(baseURL)/doctors/\(doctorID)"
         guard let url = URL(string: urlString) else {

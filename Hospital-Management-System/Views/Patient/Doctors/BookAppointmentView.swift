@@ -10,17 +10,17 @@ import SwiftUI
 struct BookAppointmentView: View {
     var doctorId: String
     @State private var showBookingSheet = false
-
+    
     var body: some View {
-//        NavigationView {
-            VStack {
-                Spacer()
-                // Automatically show the booking sheet on launch
-                BookingSheetView(doctorId: doctorId)
-                Spacer()
-            }
-            .navigationBarTitle("Cardiologist", displayMode: .inline)
-//        }
+        //        NavigationView {
+        VStack {
+            Spacer()
+            // Automatically show the booking sheet on launch
+            BookingSheetView(doctorId: doctorId)
+            Spacer()
+        }
+        .navigationBarTitle("Cardiologist", displayMode: .inline)
+        //        }
     }
 }
 
@@ -35,7 +35,7 @@ struct BookAppointmentView_Previews: PreviewProvider {
 
 struct BookingSheetView: View {
     var doctorId: String
-
+    
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedDate = Date()
     @State private var selectedSlot = "Morning"
@@ -44,10 +44,10 @@ struct BookingSheetView: View {
     @State private var showSuccessAlert = false
     @State private var fieldErrorMessage = ""
     @State private var alertMessage = ""
-
+    
     let slotOptions = ["Morning", "Afternoon", "Evening"]
     let currentDate = Date()
-
+    
     var body: some View {
         VStack {
             Spacer()
@@ -55,7 +55,7 @@ struct BookingSheetView: View {
                 Section(header: Text("Date*")) {
                     DatePicker("Select Date", selection: $selectedDate, in: currentDate..., displayedComponents: .date)
                 }
-
+                
                 Section(header: Text("Slots*")) {
                     Picker("Select Slot", selection: $selectedSlot) {
                         ForEach(slotOptions, id: \.self) { slot in
@@ -64,38 +64,38 @@ struct BookingSheetView: View {
                     }
                     .pickerStyle(MenuPickerStyle())
                 }
-
+                
                 Section(header: Text("Symptom*")) {
                     TextField("Symptom", text: $symptom)
                         .onChange(of: symptom) { newValue in
-                                                    if !newValue.isEmpty {
-                                                        fieldErrorMessage = ""
-                                                    }
-                                                }
-                                            if !fieldErrorMessage.isEmpty {
-                                                Text(fieldErrorMessage)
-                                                    .foregroundColor(.red)
-                                                    .font(.caption)
-                                            }
+                            if !newValue.isEmpty {
+                                fieldErrorMessage = ""
+                            }
+                        }
+                    if !fieldErrorMessage.isEmpty {
+                        Text(fieldErrorMessage)
+                            .foregroundColor(.red)
+                            .font(.caption)
+                    }
                 }
-
+                
                 Button(action: {
                     // Validate symptom
                     guard !symptom.isEmpty else {
-                                            fieldErrorMessage = "Please enter a symptom."
-                                            return
-                                        }
-
-                                        // Clear the error message if the validation passes
-                                        fieldErrorMessage = ""
+                        fieldErrorMessage = "Please enter a symptom."
+                        return
+                    }
+                    
+                    // Clear the error message if the validation passes
+                    fieldErrorMessage = ""
                     
                     let dateFormatter = DateFormatter()
-                                                   dateFormatter.dateFormat = "yyyy-MM-dd"
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
                     let formattedDate = dateFormatter.string(from: selectedDate)
-                                        
-                                        print(formattedDate)
-                                        
-
+                    
+                    print(formattedDate)
+                    
+                    
                     // Perform booking if symptom is not empty
                     bookAppointment(formattedDate: formattedDate)
                 }) {
@@ -110,28 +110,28 @@ struct BookingSheetView: View {
                 }
             }
         }
-//        .background(Color(red: 243/255, green: 241/255, blue: 239/255))
+        //        .background(Color(red: 243/255, green: 241/255, blue: 239/255))
         
-       
-          
-         
+        
+        
+        
+        
+        .alert(isPresented: $showSuccessAlert) {
+            Alert(
+                title: Text("Success"),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("OK")) {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            )
             
-            .alert(isPresented: $showSuccessAlert) {
-                Alert(
-                    title: Text("Success"),
-                    message: Text(alertMessage),
-                    dismissButton: .default(Text("OK")) {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                )
-        
         }
     }
-
+    
     private func bookAppointment(formattedDate: String) {
         patientService.bookDocAppointment(
-                                docId: doctorId, timeSlot: selectedSlot, date: formattedDate, symptom: symptom
-                            )
+            docId: doctorId, timeSlot: selectedSlot, date: formattedDate, symptom: symptom
+        )
         print("Booking appointment...")
         
         alertMessage = "Your appointment has been booked"

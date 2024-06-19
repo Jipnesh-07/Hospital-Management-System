@@ -50,33 +50,33 @@ struct ProfileContentView: View {
                             .background(Color.white)
                         }
                         
-//                        NavigationLink(destination: AdminPatientsListView()) {
-//                            HStack {
-//                                Image(systemName: "person.3")
-//                                    .foregroundColor(.blue)
-//                                Text("Patients")
-//                                    .foregroundColor(.black)
-//                                Spacer()
-//                                Image(systemName: "chevron.right")
-//                                    .foregroundColor(.gray)
-//                            }
-//                            .padding()
-//                            .background(Color.white)
-//                        }
-//                        
-//                        NavigationLink(destination: AdminLabView()) {
-//                            HStack {
-//                                Image(systemName: "flask")
-//                                    .foregroundColor(.blue)
-//                                Text("Laboratory")
-//                                    .foregroundColor(.black)
-//                                Spacer()
-//                                Image(systemName: "chevron.right")
-//                                    .foregroundColor(.gray)
-//                            }
-//                            .padding()
-//                            .background(Color.white)
-//                        }
+                        //                        NavigationLink(destination: AdminPatientsListView()) {
+                        //                            HStack {
+                        //                                Image(systemName: "person.3")
+                        //                                    .foregroundColor(.blue)
+                        //                                Text("Patients")
+                        //                                    .foregroundColor(.black)
+                        //                                Spacer()
+                        //                                Image(systemName: "chevron.right")
+                        //                                    .foregroundColor(.gray)
+                        //                            }
+                        //                            .padding()
+                        //                            .background(Color.white)
+                        //                        }
+                        //                        
+                        //                        NavigationLink(destination: AdminLabView()) {
+                        //                            HStack {
+                        //                                Image(systemName: "flask")
+                        //                                    .foregroundColor(.blue)
+                        //                                Text("Laboratory")
+                        //                                    .foregroundColor(.black)
+                        //                                Spacer()
+                        //                                Image(systemName: "chevron.right")
+                        //                                    .foregroundColor(.gray)
+                        //                            }
+                        //                            .padding()
+                        //                            .background(Color.white)
+                        //                        }
                     }
                     .background(Color(UIColor.systemGroupedBackground))
                     
@@ -162,7 +162,7 @@ struct ProfileHeaderView2: View {
 struct PersonalInformationView2: View {
     var body: some View {
         VStack{
-          HealthDetailsView()
+            HealthDetailsView()
         }
     }
 }

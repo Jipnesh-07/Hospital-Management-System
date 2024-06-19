@@ -22,7 +22,7 @@ struct LabTestAppointmentsView: View {
                 .sorted(by: { $0.date > $1.date }) // Sort by date in descending order
         }
     }
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -37,7 +37,7 @@ struct LabTestAppointmentsView: View {
                     VStack {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
-                            
+                        
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity) // Center the loader vertically
                 } else {

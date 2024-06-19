@@ -44,20 +44,20 @@ struct DoctorCategoryListView: View {
     }
     
     func fetchDoctors() {
-            let doctorCategory = DoctorAPI()
-            doctorCategory.getDoctors { result in
-                switch result {
-                case .success(let doctorResponse):
-                    let approvedDoctors = doctorResponse.data.filter { $0.approved }
-                    let groupedDoctors = Dictionary(grouping: approvedDoctors, by: { $0.specialization })
-                    DispatchQueue.main.async {
-                        doctorsBySpecialization = groupedDoctors
-                    }
-                case .failure(let error):
-                    print("Error fetching doctors: \(error.localizedDescription)")
+        let doctorCategory = DoctorAPI()
+        doctorCategory.getDoctors { result in
+            switch result {
+            case .success(let doctorResponse):
+                let approvedDoctors = doctorResponse.data.filter { $0.approved }
+                let groupedDoctors = Dictionary(grouping: approvedDoctors, by: { $0.specialization })
+                DispatchQueue.main.async {
+                    doctorsBySpecialization = groupedDoctors
                 }
+            case .failure(let error):
+                print("Error fetching doctors: \(error.localizedDescription)")
             }
         }
+    }
 }
 
 struct CategoryRow: View {

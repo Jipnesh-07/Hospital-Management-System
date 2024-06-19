@@ -3,7 +3,7 @@ import SwiftUI
 
 struct AdminProfile: View {
     @State private var isLoggedOut = false
-
+    
     private func logout() {
         // Clear all data stored in UserDefaults
         let defaults = UserDefaults.standard
@@ -22,13 +22,13 @@ struct AdminProfile: View {
         // Set isLoggedOut to true to trigger the navigation to sign-in screen
         isLoggedOut = true
     }
-
+    
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 20) {
                     ProfileHeaderView()
-
+                    
                     VStack(spacing: 1) {
                         NavigationLink(destination: PersonalInformationView()) {
                             HStack {
@@ -43,7 +43,7 @@ struct AdminProfile: View {
                             .padding()
                             .background(Color.white)
                         }
-
+                        
                         NavigationLink(destination: AdminPatientsListView()) {
                             HStack {
                                 Image(systemName: "person.3")
@@ -57,7 +57,7 @@ struct AdminProfile: View {
                             .padding()
                             .background(Color.white)
                         }
-
+                        
                         NavigationLink(destination: AdminLabView()) {
                             HStack {
                                 Image(systemName: "flask")
@@ -73,7 +73,7 @@ struct AdminProfile: View {
                         }
                     }
                     .background(Color(UIColor.systemGroupedBackground))
-
+                    
                     VStack(spacing: 1) {
                         NavigationLink(destination: helpView()) {
                             HStack {
@@ -88,7 +88,7 @@ struct AdminProfile: View {
                             .padding()
                             .background(Color.white)
                         }
-
+                        
                         NavigationLink(destination: privacyPolicy()) {
                             HStack {
                                 Image(systemName: "lock.circle")
@@ -104,7 +104,7 @@ struct AdminProfile: View {
                         }
                     }
                     .background(Color(UIColor.systemGroupedBackground))
-
+                    
                     Button(action: {
                         logout()
                     }) {
@@ -134,11 +134,11 @@ struct ProfileHeaderView: View {
                 .resizable()
                 .frame(width: 80, height: 80)
                 .padding(.top, 40)
-
+            
             Text("Admin")
                 .font(.title)
                 .padding(.top, 10)
-
+            
             Text("admin@hospital.com")
                 .font(.subheadline)
                 .foregroundColor(.blue)

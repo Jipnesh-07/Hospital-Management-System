@@ -38,7 +38,7 @@ struct mainPatientBannerCardView: View {
             VStack{
                 HStack{
                     Spacer()
-//                        .frame(width: -16)
+                    //                        .frame(width: -16)
                     Image(systemName: "face.smiling.inverse")
                         .resizable()
                         .frame(width: 45,height: 45)

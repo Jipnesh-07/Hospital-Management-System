@@ -5,14 +5,12 @@
 //  Created by MACBOOK on 05/06/24.
 //
 
-
 import Foundation
 import Combine
 
+// MARK: - Appointment Model
 
-
-
-
+/// Model representing an appointment.
 struct Appointment: Codable {
     let id: String
     let patient: String
@@ -34,8 +32,9 @@ struct Appointment: Codable {
     }
 }
 
+// MARK: - PatientAppointmentData Model
 
-
+/// Model representing the data of a patient in an appointment.
 struct PatientAppointmentData: Codable {
     var _id: String
     var firstName: String
@@ -52,6 +51,9 @@ struct PatientAppointmentData: Codable {
     }
 }
 
+// MARK: - DoctorAppointmentData Model
+
+/// Model representing the data of a doctor in an appointment.
 struct DoctorAppointmentData: Codable {
     var id: String
     var firstName: String
@@ -66,9 +68,9 @@ struct DoctorAppointmentData: Codable {
     }
 }
 
+// MARK: - PatientAppointment Model
 
-
-
+/// Model representing a patient appointment.
 struct PatientAppointment: Codable, Identifiable {
     enum TimeSlot: String, Codable {
         case morning = "Morning"
@@ -102,6 +104,7 @@ struct PatientAppointment: Codable, Identifiable {
         case updatedAt
     }
     
+    /// Custom initializer to decode data from a decoder.
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
@@ -118,34 +121,35 @@ struct PatientAppointment: Codable, Identifiable {
     }
 }
 
-struct Test: Codable, Hashable {
-    
-    var testName: String
+// MARK: - Test Model
 
+/// Model representing a medical test.
+struct Test: Codable, Hashable {
+    var testName: String
     var result: String
-    
     
     private enum CodingKeys: String, CodingKey {
         case testName
         case result
     }
     
+    /// Custom initializer to decode data from a decoder.
     init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<Test.CodingKeys> = try decoder.container(keyedBy: Test.CodingKeys.self)
         self.testName = try container.decodeIfPresent(String.self, forKey: Test.CodingKeys.testName) ?? ""
         self.result = try container.decodeIfPresent(String.self, forKey: Test.CodingKeys.result) ?? ""
     }
-    
 }
 
+// MARK: - DoctorAppointment Model
+
+/// Model representing a doctor appointment.
 struct DoctorAppointment: Codable, Identifiable {
     enum TimeSlot: String, Codable {
         case morning = "Morning"
         case afternoon = "Afternoon"
         case evening = "Evening"
     }
-    
-    
     
     var id: String
     var patient: PatientAppointmentData
@@ -173,6 +177,7 @@ struct DoctorAppointment: Codable, Identifiable {
         case updatedAt
     }
     
+    /// Custom initializer to decode data from a decoder.
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
@@ -189,71 +194,25 @@ struct DoctorAppointment: Codable, Identifiable {
     }
 }
 
-//let patientAppointmentsSample = [
-//    PatientAppointment(_id: "#12345", patient: "Rajiv", doctor: DoctorAppointmentData(_id: "#123456", firstName: "Rajiv", lastName: "Kumar", specialization: "Cardiology"), date: Date(), timeSlot:PatientAppointment.TimeSlot.morning, createdAt: Date(), updatedAt: Date())]
+// MARK: - PatientAppointmentResponse Model
 
+/// Model representing the response containing a list of patient appointments.
 struct PatientAppointmentResponse: Codable {
     let success: Bool
     let data: [PatientAppointment]
 }
 
+// MARK: - DoctorAppointmentResponse Model
+
+/// Model representing the response containing a list of doctor appointments.
 struct DoctorAppointmentResponse: Codable {
     var success: Bool
     var data: [DoctorAppointment]
 }
 
+// MARK: - Fetch Doctor Appointments Function
 
-//import Foundation
-
-//func fetchPatientAppointments(token: String) {
-//    print("Entered Fetch function")
-//    let urlString = "http://localhost:4000/patient/appointments"
-//    guard let url = URL(string: urlString) else { return }
-//
-//    var request = URLRequest(url: url)
-//    request.httpMethod = "GET"
-//    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-//
-//    print("Entered 2")
-//    let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//        if let error = error {
-//            print("Error: \(error)")
-//            return
-//        }
-//
-//        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-//            print("Server error")
-//            return
-//        }
-//
-//        guard let data = data else {
-//            print("No data received")
-//            return
-//        }
-//
-//        do {
-//            let decoder = JSONDecoder()
-//
-//            // Custom Date Decoding Strategy
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-//            decoder.dateDecodingStrategy = .formatted(dateFormatter)
-//
-//            let appointmentResponse = try decoder.decode(PatientAppointmentResponse.self, from: data)
-//            print("Success: \(appointmentResponse.success)")
-//            for appointment in appointmentResponse.data {
-//                print("Appointment ID: \(appointment._id), Patient ID: \(appointment.patient), Doctor: \(appointment.doctor.firstName) \(appointment.doctor.lastName), Date: \(appointment.date), Time Slot: \(appointment.timeSlot.rawValue)")
-//            }
-//        } catch {
-//            print("Error decoding JSON: \(error)")
-//        }
-//    }
-//
-//    task.resume()
-//}
-
-
-
+/// Fetches doctor appointments from the server.
 func fetchDoctorAppointments(token: String) {
     print("Entered Fetch function")
     let urlString = "http://localhost:4000/doctor/appointments"

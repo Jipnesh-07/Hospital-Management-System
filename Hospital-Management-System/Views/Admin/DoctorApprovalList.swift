@@ -205,13 +205,13 @@ struct DoctorListItemView: View {
                     .buttonStyle(BorderlessButtonStyle())
                     
                     NavigationLink(destination: DoctorInformationView(viewModel: DoctorInformationViewModel(doctor: doctor))) {
-//                        Text("↓")
-//                            .font(.system(size: 20))
-//                            .frame(width: 24)
-//                            .padding(12)
-//                            .rotationEffect(Angle(degrees: 270))
-//                            .foregroundColor(.white)
-//                            .background(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 1).fill(Color(red: 97/255, green: 120/255, blue: 187/255)))
+                        //                        Text("↓")
+                        //                            .font(.system(size: 20))
+                        //                            .frame(width: 24)
+                        //                            .padding(12)
+                        //                            .rotationEffect(Angle(degrees: 270))
+                        //                            .foregroundColor(.white)
+                        //                            .background(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 1).fill(Color(red: 97/255, green: 120/255, blue: 187/255)))
                     }
                     .buttonStyle(BorderlessButtonStyle())
                 }

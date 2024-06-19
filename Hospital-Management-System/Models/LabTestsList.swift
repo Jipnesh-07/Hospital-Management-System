@@ -5,14 +5,12 @@
 //  Created by MACBOOK on 05/06/24.
 //
 
-
 import Foundation
 
 
+
+/// Model representing details of a lab test.
 struct TestDetails: Codable, Identifiable {
-    
-    
-    
     let patient: String
     let date: Date
     let timeSlot: String
@@ -20,34 +18,37 @@ struct TestDetails: Codable, Identifiable {
     let status: String
     let id: String
 
-
     enum CodingKeys: String, CodingKey {
-        
-        
         case patient
         case date
         case timeSlot
         case testName
         case status
-       case id = "_id"
-
+        case id = "_id"
     }
 }
 
+// MARK: - BookAppointmentResponse Model
 
+/// Model representing the response for booking an appointment.
 struct BookAppointmentResponse: Codable {
     let success: Bool
     let data: TestDetails
-    //let message: String?
+    // let message: String?
 }
 
+// MARK: - GetAppointmentListResponse Model
 
+/// Model representing the response for getting a list of appointments.
 struct GetAppointmentListResponse: Codable {
     let success: Bool
     let data: [TestDetails]
-    //let message: String?
+    // let message: String?
 }
 
+// MARK: - Lab Tests Dictionary
+
+/// Dictionary containing various lab tests categorized by test types.
 let LabTests = [
     "Blood-Test": [
         "Blood Glucose Test",
@@ -116,6 +117,3 @@ let LabTests = [
         "Visual Evoked Potential (VEP) Test"
     ]
 ]
-
-
-

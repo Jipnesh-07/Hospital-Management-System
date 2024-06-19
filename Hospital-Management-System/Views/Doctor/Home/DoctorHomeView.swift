@@ -34,7 +34,7 @@ struct DoctorData: Codable {
     let createdAt: String
     let updatedAt: String
     let fees: String
-
+    
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case accountType, firstName, lastName, age, gender, phoneNumber, approved, email, about, specialization, experience, qualification, appointments, labTestAppointments, schedule, createdAt, updatedAt, fees

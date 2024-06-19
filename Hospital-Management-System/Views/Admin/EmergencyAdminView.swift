@@ -13,28 +13,28 @@ struct EmergencyRequestsView: View {
     @StateObject private var viewModel = EmergencyRequestsViewModel()
     
     var body: some View {
-//        NavigationView {
-            VStack {
-                if viewModel.isLoading {
-                    ProgressView("Loading...")
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .padding()
-                } else if let errorMessage = viewModel.errorMessage {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .padding()
-                } else {
-                    List(viewModel.emergencyRequests) { request in
-                        EmergencyRequestRow(request: request)
-                    }
-                    .listStyle(PlainListStyle())
+        //        NavigationView {
+        VStack {
+            if viewModel.isLoading {
+                ProgressView("Loading...")
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .padding()
+            } else if let errorMessage = viewModel.errorMessage {
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .padding()
+            } else {
+                List(viewModel.emergencyRequests) { request in
+                    EmergencyRequestRow(request: request)
                 }
+                .listStyle(PlainListStyle())
             }
-            .navigationTitle("Emergency Requests")
-            .onAppear {
-                viewModel.fetchEmergencyRequests()
-            }
-//        }
+        }
+        .navigationTitle("Emergency Requests")
+        .onAppear {
+            viewModel.fetchEmergencyRequests()
+        }
+        //        }
     }
 }
 

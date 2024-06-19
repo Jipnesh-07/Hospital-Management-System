@@ -59,7 +59,7 @@ struct BookLabAppointmentsView: View {
                     
                     
                     
-                   
+                    
                     
                     
                     
@@ -113,7 +113,7 @@ struct BookLabAppointmentsView: View {
                 
                 Spacer()
             }
-           
+            
         }
     }
 }

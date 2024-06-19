@@ -23,7 +23,7 @@ struct DoctorProfileView: View {
     let height: String = UserDefaults.standard.string(forKey: "height") ?? ""
     
     let weight: String = UserDefaults.standard.string(forKey: "weight") ?? ""
-
+    
     let licenseNumber: String = UserDefaults.standard.string(forKey: "licenseNumber") ?? ""
     
     let specialization: String = UserDefaults.standard.string(forKey: "specialization") ?? ""
@@ -82,14 +82,14 @@ struct DoctorProfileView: View {
                         }
                         .frame(height: 40)
                         
-//                        HStack {
-//                            Text("Medical License no.")
-//                            Spacer()
-//                            Text(licenseNumber)
-//                                .foregroundColor(.black)
-//                                .fontWeight(.semibold)
-//                        }
-//                        .frame(height: 40)
+                        //                        HStack {
+                        //                            Text("Medical License no.")
+                        //                            Spacer()
+                        //                            Text(licenseNumber)
+                        //                                .foregroundColor(.black)
+                        //                                .fontWeight(.semibold)
+                        //                        }
+                        //                        .frame(height: 40)
                         
                         HStack {
                             Text("Specialisation")
@@ -110,11 +110,11 @@ struct DoctorProfileView: View {
                         .frame(height: 40)
                     }
                     Section {
-                                           NavigationLink(destination: AddSchedule()) {
-                                               Text("Schedule")
-                                                   .foregroundColor(.black).frame(maxWidth: .infinity, alignment: .leading)
-                                           }
-                                       }
+                        NavigationLink(destination: AddSchedule()) {
+                            Text("Schedule")
+                                .foregroundColor(.black).frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }
                     
                     // Logout Button
                     Section {

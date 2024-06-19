@@ -115,7 +115,7 @@ struct PrescriptionForm: View {
                     Button(action: {
                         doctorService.addPrescription(appointmentId: appointment.id, prescription: prescriptionText) { success in
                             if success {
-                               // self.presentationMode.wrappedValue.dismiss()
+                                // self.presentationMode.wrappedValue.dismiss()
                                 alertMessage = "Your appointment has been booked"
                                 showSuccessAlert = true
                             } else {
@@ -155,8 +155,8 @@ struct PrescriptionForm: View {
                     presentationMode.wrappedValue.dismiss()
                 }
             )
-    
-    }
+            
+        }
     }
     
     private var dateFormatter: DateFormatter {

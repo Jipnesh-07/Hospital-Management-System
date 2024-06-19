@@ -3,7 +3,7 @@ import SwiftUI
 struct AdminPatientsListView: View {
     @StateObject private var networkManager = NetworkManagerOfAdmin()
     @State private var searchText = ""
-
+    
     var filteredPatients: [PatientForAdmin] {
         if searchText.isEmpty {
             return networkManager.patients
@@ -15,66 +15,66 @@ struct AdminPatientsListView: View {
             }
         }
     }
-
+    
     var body: some View {
-//        NavigationView {
-            VStack {
-                // Custom search bar
+        //        NavigationView {
+        VStack {
+            // Custom search bar
+            HStack {
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(.gray)
+                    .padding(8)
+                TextField("Search", text: $searchText)
+                    .foregroundColor(.primary)
+                    .padding(8)
+            }
+            .background(Color(.systemGray6))
+            .cornerRadius(10)
+            .padding(.horizontal)
+            .padding(.top, 8)
+            
+            List(filteredPatients) { patient in
                 HStack {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(.gray)
-                        .padding(8)
-                    TextField("Search", text: $searchText)
-                        .foregroundColor(.primary)
-                        .padding(8)
-                }
-                .background(Color(.systemGray6))
-                .cornerRadius(10)
-                .padding(.horizontal)
-                .padding(.top, 8)
-                
-                List(filteredPatients) { patient in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            // This could be the patient's profile picture
-                            Image(systemName: "person.circle.fill")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .clipShape(Circle())
-                            
-                            Spacer()
-                        }
-                        
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("\(patient.firstName) \(patient.lastName)")
-                                .font(.headline)
-                            
-                            Text("ID: \(patient.id)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            
-                        }
-                        .padding(.leading, 8)
+                    VStack(alignment: .leading) {
+                        // This could be the patient's profile picture
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
                         
                         Spacer()
-                        
-                        // Navigation button or action button
-                        NavigationLink(destination: PatientInformationAdminView(patient: patient)) {
-//                                                    Image(systemName: "info.circle")
-//                                                        .resizable()
-//                                                        .frame(width: 24, height: 24)
-//                                                        .foregroundColor(.blue)
-                                                }
                     }
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .shadow(radius: 2)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("\(patient.firstName) \(patient.lastName)")
+                            .font(.headline)
+                        
+                        Text("ID: \(patient.id)")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        
+                    }
+                    .padding(.leading, 8)
+                    
+                    Spacer()
+                    
+                    // Navigation button or action button
+                    NavigationLink(destination: PatientInformationAdminView(patient: patient)) {
+                        //                                                    Image(systemName: "info.circle")
+                        //                                                        .resizable()
+                        //                                                        .frame(width: 24, height: 24)
+                        //                                                        .foregroundColor(.blue)
+                    }
                 }
-                .listStyle(PlainListStyle())
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(10)
+                .shadow(radius: 2)
             }
-            .navigationTitle("Patients")
-//        }
+            .listStyle(PlainListStyle())
+        }
+        .navigationTitle("Patients")
+        //        }
         .onAppear {
             networkManager.getAllPatients()
         }

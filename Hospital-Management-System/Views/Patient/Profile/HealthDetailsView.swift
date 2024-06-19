@@ -21,102 +21,102 @@ struct HealthDetailsView: View {
     @State private var isLoggedOut = false
     
     var body: some View {
-//        NavigationView {
-            VStack(spacing: 0) {
+        //        NavigationView {
+        VStack(spacing: 0) {
+            Spacer()
+            HStack {
                 Spacer()
-                HStack {
-                    Spacer()
-                    Image("user2")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 90, height: 87)
-                        .background(Color(.gray))
-                        .clipShape(Circle())
-                    Spacer()
-                }
-                .padding(.vertical, 20)
-                
-                HStack {
-                    Text("\(firstName) \(lastName)")
-                        .font(.title)
-                        .fontWeight(.semibold)
-                }
-                HStack {
-                    Text(email)
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.gray)
-                }
-                
-                Form {
-                    Section {
-                        HStack {
-                            Text("Age")
-                                .foregroundColor(.black)
-                            Spacer()
-                            Text(age)
-                                .foregroundColor(.black)
-                                .fontWeight(.semibold)
-                        }
-                        .frame(height: 40)
-                        
-                        HStack {
-                            Text("Sex")
-                            Spacer()
-                            Text(gender)
-                                .foregroundColor(.black)
-                                .fontWeight(.semibold)
-                        }
-                        .frame(height: 40)
-                        
-                        HStack {
-                            Text("Blood Group")
-                            Spacer()
-                            Text(bloodGroup)
-                                .foregroundColor(.black)
-                                .fontWeight(.semibold)
-                        }
-                        .frame(height: 40)
-                        
-                        HStack {
-                            Text("Height")
-                            Spacer()
-                            Text(height)
-                                .foregroundColor(.black)
-                                .fontWeight(.semibold)
-                        }
-                        .frame(height: 40)
-                        
-                        HStack {
-                            Text("Weight")
-                            Spacer()
-                            Text(weight)
-                                .foregroundColor(.black)
-                                .fontWeight(.semibold)
-                        }
-                        .frame(height: 40)
+                Image("user2")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 90, height: 87)
+                    .background(Color(.gray))
+                    .clipShape(Circle())
+                Spacer()
+            }
+            .padding(.vertical, 20)
+            
+            HStack {
+                Text("\(firstName) \(lastName)")
+                    .font(.title)
+                    .fontWeight(.semibold)
+            }
+            HStack {
+                Text(email)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.gray)
+            }
+            
+            Form {
+                Section {
+                    HStack {
+                        Text("Age")
+                            .foregroundColor(.black)
+                        Spacer()
+                        Text(age)
+                            .foregroundColor(.black)
+                            .fontWeight(.semibold)
                     }
+                    .frame(height: 40)
                     
-                    // Logout Button
-                    Section {
-                        Button(action: {
-                            logout()
-                        }) {
-                            Text("Logout")
-                                .foregroundColor(.red)
-                                .fontWeight(.bold)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                        }
+                    HStack {
+                        Text("Sex")
+                        Spacer()
+                        Text(gender)
+                            .foregroundColor(.black)
+                            .fontWeight(.semibold)
+                    }
+                    .frame(height: 40)
+                    
+                    HStack {
+                        Text("Blood Group")
+                        Spacer()
+                        Text(bloodGroup)
+                            .foregroundColor(.black)
+                            .fontWeight(.semibold)
+                    }
+                    .frame(height: 40)
+                    
+                    HStack {
+                        Text("Height")
+                        Spacer()
+                        Text(height)
+                            .foregroundColor(.black)
+                            .fontWeight(.semibold)
+                    }
+                    .frame(height: 40)
+                    
+                    HStack {
+                        Text("Weight")
+                        Spacer()
+                        Text(weight)
+                            .foregroundColor(.black)
+                            .fontWeight(.semibold)
+                    }
+                    .frame(height: 40)
+                }
+                
+                // Logout Button
+                Section {
+                    Button(action: {
+                        logout()
+                    }) {
+                        Text("Logout")
+                            .foregroundColor(.red)
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity, alignment: .center)
                     }
                 }
-                .listStyle(InsetGroupedListStyle())
-                .padding(.bottom, 20)
             }
-            .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
-            .fullScreenCover(isPresented: $isLoggedOut) {
-                userSignIn()
-            }
-//        }
+            .listStyle(InsetGroupedListStyle())
+            .padding(.bottom, 20)
+        }
+        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .fullScreenCover(isPresented: $isLoggedOut) {
+            userSignIn()
+        }
+        //        }
     }
     
     private func logout() {
